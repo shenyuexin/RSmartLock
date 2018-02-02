@@ -82,6 +82,7 @@
 		79F343312024523800BF6087 /* WBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F3432F2024523700BF6087 /* WBSearchBar.m */; };
 		79F343342024569A00BF6087 /* RLockInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F343332024569A00BF6087 /* RLockInfoViewController.m */; };
 		79F34337202464CF00BF6087 /* RUsageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F34336202464CF00BF6087 /* RUsageCell.m */; };
+		79F3433A20246E2200BF6087 /* RRecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F3433920246E2200BF6087 /* RRecordInfo.m */; };
 		C29562436FC64006C2469825 /* libPods-SmartLock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85672A37D73E1F9E3355DDEF /* libPods-SmartLock.a */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +238,8 @@
 		79F343332024569A00BF6087 /* RLockInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RLockInfoViewController.m; sourceTree = "<group>"; };
 		79F34335202464CF00BF6087 /* RUsageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUsageCell.h; sourceTree = "<group>"; };
 		79F34336202464CF00BF6087 /* RUsageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUsageCell.m; sourceTree = "<group>"; };
+		79F3433820246E2200BF6087 /* RRecordInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRecordInfo.h; sourceTree = "<group>"; };
+		79F3433920246E2200BF6087 /* RRecordInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRecordInfo.m; sourceTree = "<group>"; };
 		85672A37D73E1F9E3355DDEF /* libPods-SmartLock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartLock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA44BC6B2B72C6F6747BED2A /* Pods-SmartLock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLock/Pods-SmartLock.debug.xcconfig"; sourceTree = "<group>"; };
 		E2D8AA35A084C657B8F35041 /* Pods-SmartLock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLock.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLock/Pods-SmartLock.release.xcconfig"; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 			children = (
 				79F3432C202438EF00BF6087 /* RLockInfo.h */,
 				79F3432D202438EF00BF6087 /* RLockInfo.m */,
+				79F3433820246E2200BF6087 /* RRecordInfo.h */,
+				79F3433920246E2200BF6087 /* RRecordInfo.m */,
 			);
 			name = Models;
 			path = SmartLock/Models;
@@ -703,6 +708,7 @@
 				792936F720089EF800C0A970 /* WBLoginTextField.m in Sources */,
 				792936FA2008AF5000C0A970 /* WBLoginButton.m in Sources */,
 				79639D6B2004A2160080AB30 /* NSString+RemoveEmoji.m in Sources */,
+				79F3433A20246E2200BF6087 /* RRecordInfo.m in Sources */,
 				79639D772004A2160080AB30 /* UIButton+RoundLayer.m in Sources */,
 				79639D6A2004A2160080AB30 /* UIColor+Theme.m in Sources */,
 				79639D652004A2160080AB30 /* UITextView+Limit.m in Sources */,

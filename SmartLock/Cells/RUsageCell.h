@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RRecordInfo.h"
+
+FOUNDATION_EXTERN NSString * const RUsageCellIdentifier;
 
 @interface RUsageCell : UITableViewCell
 
+@property (nonatomic, strong) RRecordInfo *record;
 @end

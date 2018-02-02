@@ -7,6 +7,7 @@
 //
 
 #import "RLockInfoViewController.h"
+#import "RUsageCell.h"
 
 @interface RLockInfoViewController ()
 
@@ -28,11 +29,21 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"智能便携锁智";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.settingBtn];
+    
+    self.tableView.rowHeight = 74;
+    [self.tableView registerClass:[RUsageCell class] forCellReuseIdentifier:RUsageCellIdentifier];
+    self.tableView.tableHeaderView = self.headView;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)setLock:(RLockInfo *)lock
@@ -68,6 +79,39 @@
     
 }
 
+#pragma mark - UITableView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RUsageCell *cell = [tableView dequeueReusableCellWithIdentifier:RUsageCellIdentifier forIndexPath:indexPath];
+    cell.record = nil;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    [[WBMediator sharedManager] gotoLockInfoController:nil];
+}
+
 #pragma mark - Getter
 - (UIButton *)settingBtn
 {
@@ -87,8 +131,9 @@
         _headView.backgroundColor = [UIColor whiteColor];
         
         [_headView addSubview:self.imgView];
-        [_headView addSubview:self.nameLabel];
         [_headView addSubview:self.stateLabel];
+        [_headView addSubview:self.nameLabel];
+        
         [_headView addSubview:self.usageLabel];
         [_headView addSubview:self.usersLabel];
         [_headView addSubview:self.dateLabel];
@@ -138,7 +183,7 @@
 - (UILabel *)usageLabel
 {
     if(!_usageLabel){
-        _usageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _nameLabel.bottom+15, (SCREEN_WIDTH-20)/3, 44)];
+        _usageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 104.5, (SCREEN_WIDTH-20)/3, 44)];
         _usageLabel.textAlignment = NSTextAlignmentLeft;
         _usageLabel.numberOfLines = 2;
     }
@@ -148,7 +193,7 @@
 - (UILabel *)usersLabel
 {
     if(!_usersLabel){
-        _usersLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usageLabel.right, _nameLabel.bottom+15, (SCREEN_WIDTH-20)/3, 44)];
+        _usersLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usageLabel.right, 104.5, (SCREEN_WIDTH-20)/3, 44)];
         _usersLabel.textAlignment = NSTextAlignmentCenter;
         _usersLabel.numberOfLines = 2;
     }
@@ -158,7 +203,7 @@
 - (UILabel *)dateLabel
 {
     if(!_dateLabel){
-        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usersLabel.right, _nameLabel.bottom+15, (SCREEN_WIDTH-20)/3, 44)];
+        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usersLabel.right, 104.5, (SCREEN_WIDTH-20)/3, 44)];
         _dateLabel.textAlignment = NSTextAlignmentRight;
         _dateLabel.numberOfLines = 2;
     }
@@ -168,7 +213,7 @@
 - (UIButton *)addressBtn
 {
     if(!_addressBtn){
-        _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 108.5, SCREEN_WIDTH, 40)];
+        _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 158.5, SCREEN_WIDTH, 40)];
         _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _addressBtn.backgroundColor = HEX_RGB(0xf7f7f7);
         _addressBtn.titleLabel.font = [UIFont systemFontOfSize:13];
