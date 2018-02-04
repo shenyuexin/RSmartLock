@@ -16,4 +16,6 @@
 @property (nonatomic, assign) long users;
 @property (nonatomic, assign) long long timestamp;
 @property (nonatomic, strong) NSString *dateString;
+
+@property (nonatomic, strong) NSString *address;
 @end

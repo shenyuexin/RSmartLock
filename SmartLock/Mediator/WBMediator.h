@@ -52,4 +52,7 @@
 
 //前往锁详情页
 - (void)gotoLockInfoController:(id)lock;
+
+//前往编辑锁地址页面
+- (void)gotoAddressController;
 @end

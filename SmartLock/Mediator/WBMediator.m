@@ -127,4 +127,10 @@
     [self gotoController:controller];
 }
 
+- (void)gotoAddressController
+{
+    UIViewController *controller = [self controllerWithName:@"RAddressViewController"];
+    [self gotoController:controller]; 
+}
+
 @end

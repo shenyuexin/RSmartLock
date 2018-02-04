@@ -34,9 +34,9 @@
 {
     [super layoutSubviews];
     self.placeholderWidth = [self.placeholder sizeWithFont:self.txtFiled.font byHeight:self.height].width + 3;
-    if (@available(iOS 11.0, *)) {
-        [self setPositionAdjustment:UIOffsetMake((self.txtFiled.width - _placeholderWidth)/2, 0) forSearchBarIcon:UISearchBarIconSearch];
-    }
+//    if (@available(iOS 11.0, *)) {
+//        [self setPositionAdjustment:UIOffsetMake((self.txtFiled.width - _placeholderWidth)/2, 0) forSearchBarIcon:UISearchBarIconSearch];
+//    }
 }
 
 
@@ -49,9 +49,9 @@
         value = [self.delegate searchBarShouldBeginEditing:self];
     }
     if(!value) return NO;
-    if (@available(iOS 11.0, *)) {
-        [self setPositionAdjustment:UIOffsetZero forSearchBarIcon:UISearchBarIconSearch];
-    }
+//    if (@available(iOS 11.0, *)) {
+//        [self setPositionAdjustment:UIOffsetZero forSearchBarIcon:UISearchBarIconSearch];
+//    }
     return YES;
 }
 
@@ -62,9 +62,9 @@
         value = [self.delegate searchBarShouldEndEditing:self];
     }
     if(!value) return NO;
-    if (@available(iOS 11.0, *)) {
-        [self setPositionAdjustment:UIOffsetMake((textField.frame.size.width - _placeholderWidth)/2, 0) forSearchBarIcon:UISearchBarIconSearch];
-    }
+//    if (@available(iOS 11.0, *)) {
+//        [self setPositionAdjustment:UIOffsetMake((textField.frame.size.width - _placeholderWidth)/2, 0) forSearchBarIcon:UISearchBarIconSearch];
+//    }
     return YES;
 }
 

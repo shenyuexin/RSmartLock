@@ -89,7 +89,6 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
         _labelStyle.firstLineHeadIndent = 10.0f;
         _labelStyle.headIndent = 10.0f;
         _labelStyle.tailIndent = -10.0f;
-
     }
     return _labelStyle;
 }

@@ -57,7 +57,7 @@ NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 - (UIView *)conView
 {
     if(!_conView){
-        _conView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.width-30, self.height)];
+        _conView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-30, 74)];
         _conView.backgroundColor = [UIColor whiteColor];
         _conView.layer.masksToBounds = YES;
         _conView.layer.cornerRadius = 4;
@@ -73,7 +73,7 @@ NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 - (UILabel *)nameLabel
 {
     if(!_nameLabel){
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 6, _conView.width-100, 14)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 10, _conView.width-100, 14)];
         _nameLabel.font = [UIFont systemFontOfSize:13];
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.textColor = HEX_RGB(0x222222);
@@ -84,7 +84,7 @@ NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 - (UILabel *)typeLabel
 {
     if(!_typeLabel){
-        _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_conView.width-90, 6, 80, 14)];
+        _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_conView.width-90, 10, 80, 14)];
         _typeLabel.font = [UIFont systemFontOfSize:12];
         _typeLabel.textAlignment = NSTextAlignmentRight;
         _typeLabel.textColor = HEX_RGB(0x999999);
@@ -95,7 +95,7 @@ NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 - (UILabel *)idLabel
 {
     if(!_idLabel){
-        _idLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, _nameLabel.bottom+7, _conView.width-100, 14)];
+        _idLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, _nameLabel.bottom+10, _conView.width-100, 14)];
         _idLabel.font = [UIFont systemFontOfSize:12];
         _idLabel.textAlignment = NSTextAlignmentLeft;
         _idLabel.textColor = HEX_RGB(0x999999);

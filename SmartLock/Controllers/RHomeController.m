@@ -123,6 +123,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:RHomeCellIdentifier forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.lock = nil;
     return cell;
 }

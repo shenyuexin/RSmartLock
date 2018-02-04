@@ -8,6 +8,7 @@
 
 #import "RLockInfoViewController.h"
 #import "RUsageCell.h"
+#import "UIImage+Color.h"
 
 @interface RLockInfoViewController ()
 
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) UILabel *usersLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIButton *addressBtn;
+@property (nonatomic, strong) UIView *footView;
+@property (nonatomic, strong) UIButton *uploadBtn;
 @end
 
 @implementation RLockInfoViewController
@@ -33,6 +36,7 @@
     self.tableView.rowHeight = 74;
     [self.tableView registerClass:[RUsageCell class] forCellReuseIdentifier:RUsageCellIdentifier];
     self.tableView.tableHeaderView = self.headView;
+    self.tableView.tableFooterView = self.footView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +55,6 @@
     _lock = lock;
     
     UIColor *tColor = HEX_RGB(0X3DBA9C);
-    
     UIFont *font = [UIFont systemFontOfSize:16];
     UIFont *sfont = [UIFont systemFontOfSize:12];
     NSMutableAttributedString *stringa = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n累计开锁次数",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
@@ -65,16 +68,34 @@
     NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n下次自检时间",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
     [stringc addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(stringc.length-6, 6)];
     self.dateLabel.attributedText = stringc;
+    
+    NSMutableAttributedString *btnTitle = nil;
+    if(_lock.address.isNotEmpty){
+        btnTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ",_lock.address] attributes:@{NSForegroundColorAttributeName:HEX_RGB(0xe999999),NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+    }
+    else{
+        btnTitle = [[NSMutableAttributedString alloc] initWithString:@"请完善该锁地址 " attributes:@{NSForegroundColorAttributeName:HEX_RGB(0xe86868),NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+    }
+    NSTextAttachment * attachment = [[NSTextAttachment alloc] init];
+    attachment.bounds = CGRectMake(0, -2, 15, 15);
+    attachment.image = [UIImage imageNamed:@"icon_bianji"];
+    [btnTitle appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+    [self.addressBtn setAttributedTitle:btnTitle forState:UIControlStateNormal];
 }
 
 
 #pragma mark - Event
 - (void)settingClick
 {
-    
+    [[WBMediator sharedManager] gotoSettingController];
 }
 
 - (void)addressClick
+{
+    [[WBMediator sharedManager] gotoAddressController];
+}
+
+- (void)uploadClick
 {
     
 }
@@ -103,13 +124,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RUsageCell *cell = [tableView dequeueReusableCellWithIdentifier:RUsageCellIdentifier forIndexPath:indexPath];
+    cell.backgroundColor = self.tableView.backgroundColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.record = nil;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    [[WBMediator sharedManager] gotoLockInfoController:nil];
+    
 }
 
 #pragma mark - Getter
@@ -127,7 +150,7 @@
 - (UIView *)headView
 {
     if(!_headView){
-        _headView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 198)];
+        _headView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 236)];
         _headView.backgroundColor = [UIColor whiteColor];
         
         [_headView addSubview:self.imgView];
@@ -217,8 +240,33 @@
         _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _addressBtn.backgroundColor = HEX_RGB(0xf7f7f7);
         _addressBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [_addressBtn addTarget:self action:@selector(addressClick) forControlEvents:UIControlEventTouchUpInside];
+        [_addressBtn addTarget:self action:@selector(addressClick) forControlEvents:UIControlEventTouchDown];
     }
     return _addressBtn;
+}
+
+- (UIView *)footView
+{
+    if(!_footView){
+        _footView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        _footView.backgroundColor = self.tableView.backgroundColor;
+        [_footView addSubview:self.uploadBtn];
+    }
+    return _footView;
+}
+
+- (UIButton *)uploadBtn
+{
+    if(!_uploadBtn){
+        _uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH-20, 35)];
+        _uploadBtn.layer.cornerRadius = 4;
+        _uploadBtn.layer.masksToBounds = YES;
+        _uploadBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [_uploadBtn setBackgroundImage:[UIImage imageWithColor:HEX_RGB(0x3684b5)] forState:UIControlStateNormal];
+        [_uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_uploadBtn setTitle:@"上传开锁记录" forState:UIControlStateNormal];
+        [_uploadBtn addTarget:self action:@selector(uploadClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _uploadBtn;
 }
 @end
