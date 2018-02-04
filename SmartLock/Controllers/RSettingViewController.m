@@ -136,7 +136,11 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.font = [UIFont systemFontOfSize:17];
-        if(indexPath.section == 4){
+        
+        if(indexPath.section == 3){
+            cell.textLabel.textColor = HEX_RGB(0x333333);
+        }
+        else{
             cell.textLabel.textColor = HEX_RGB(0xec5b5b);
         }
     }
@@ -148,12 +152,43 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    NSString *text = self.dataList[indexPath.row];
-    if([text isEqualToString:@"修改开锁密码"]){
-        [[WBMediator sharedManager] gotoModifyPasswordController];
+
+    if(indexPath.section == 0)
+    {
+        
     }
-    else if([text isEqualToString:@"锁指纹录入"]){
-        [[WBMediator sharedManager] gotoFingerPrintController];
+    else if(indexPath.section == 1)
+    {
+        
+    }
+    else if(indexPath.section == 2)
+    {
+        if(indexPath.row == 0){
+            [[WBMediator sharedManager] gotoModifyPasswordController];
+        }
+        else if(indexPath.row == 1){
+            [[WBMediator sharedManager] gotoICController];
+        }
+        else if(indexPath.row == 2){
+            [[WBMediator sharedManager] gotoFingerPrintController];
+        }
+    }
+    else if(indexPath.section == 3)
+    {
+        
+    }
+    else if(indexPath.section == 4)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要重置智能锁吗?"
+                                                                       message:@"重置后将清空所有个人记录及设置"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 @end

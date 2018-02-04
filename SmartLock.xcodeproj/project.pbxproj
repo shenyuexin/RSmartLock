@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187979692026D8A200A7CA1F /* RAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187979682026D8A200A7CA1F /* RAddressViewController.m */; };
+		1879796C2027020F00A7CA1F /* RPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879796B2027020F00A7CA1F /* RPersonViewController.m */; };
 		792936EE20088AB600C0A970 /* RLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936ED20088AB600C0A970 /* RLoginViewController.m */; };
 		792936F120088AC700C0A970 /* RQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936F020088AC700C0A970 /* RQRCodeViewController.m */; };
 		792936F420089D7800C0A970 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936F320089D7800C0A970 /* UICountingLabel.m */; };
@@ -90,6 +91,8 @@
 /* Begin PBXFileReference section */
 		187979672026D8A200A7CA1F /* RAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAddressViewController.h; sourceTree = "<group>"; };
 		187979682026D8A200A7CA1F /* RAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAddressViewController.m; sourceTree = "<group>"; };
+		1879796A2027020F00A7CA1F /* RPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPersonViewController.h; sourceTree = "<group>"; };
+		1879796B2027020F00A7CA1F /* RPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPersonViewController.m; sourceTree = "<group>"; };
 		792936EC20088AB600C0A970 /* RLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLoginViewController.h; sourceTree = "<group>"; };
 		792936ED20088AB600C0A970 /* RLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RLoginViewController.m; sourceTree = "<group>"; };
 		792936EF20088AC700C0A970 /* RQRCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RQRCodeViewController.h; sourceTree = "<group>"; };
@@ -477,6 +480,8 @@
 				7964C132201856DA00B8A1B5 /* RFaceViewController.m */,
 				187979672026D8A200A7CA1F /* RAddressViewController.h */,
 				187979682026D8A200A7CA1F /* RAddressViewController.m */,
+				1879796A2027020F00A7CA1F /* RPersonViewController.h */,
+				1879796B2027020F00A7CA1F /* RPersonViewController.m */,
 			);
 			name = Controllers;
 			path = SmartLock/Controllers;
@@ -688,6 +693,7 @@
 				79F343342024569A00BF6087 /* RLockInfoViewController.m in Sources */,
 				7964C1212015E07200B8A1B5 /* RICViewController.m in Sources */,
 				79F343312024523800BF6087 /* WBSearchBar.m in Sources */,
+				1879796C2027020F00A7CA1F /* RPersonViewController.m in Sources */,
 				792936F420089D7800C0A970 /* UICountingLabel.m in Sources */,
 				7964C12D20171C9D00B8A1B5 /* RICVerifyViewController.m in Sources */,
 				79639D5B2004A2160080AB30 /* UIView+YSTextInputKeyboard.m in Sources */,
