@@ -10,7 +10,6 @@
 
 NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 
-
 @interface RUsageCell ()
 
 @property (nonatomic, strong) UIView *conView;

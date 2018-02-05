@@ -9,8 +9,9 @@
 #import "RLockInfoViewController.h"
 #import "RUsageCell.h"
 #import "UIImage+Color.h"
+#import "WBSearchBar.h"
 
-@interface RLockInfoViewController ()
+@interface RLockInfoViewController ()<UISearchBarDelegate>
 
 @property (nonatomic, strong) UIButton *settingBtn;
 @property (nonatomic, strong) UIView *headView;
@@ -21,6 +22,9 @@
 @property (nonatomic, strong) UILabel *usersLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIButton *addressBtn;
+@property (nonatomic, strong) WBSearchBar *searchBar;
+@property (nonatomic, strong) UIButton *datePickBtn;
+
 @property (nonatomic, strong) UIView *footView;
 @property (nonatomic, strong) UIButton *uploadBtn;
 @end
@@ -37,6 +41,7 @@
     [self.tableView registerClass:[RUsageCell class] forCellReuseIdentifier:RUsageCellIdentifier];
     self.tableView.tableHeaderView = self.headView;
     self.tableView.tableFooterView = self.footView;
+    self.footView.userInteractionEnabled = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,6 +102,11 @@
 
 - (void)uploadClick
 {
+    NSLog(@"11123");
+}
+
+- (void)datePickClick
+{
     
 }
 
@@ -135,12 +145,23 @@
     
 }
 
+#pragma mark - UISearchBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    
+}
+
 #pragma mark - Getter
 - (UIButton *)settingBtn
 {
     if(!_settingBtn){
-        _settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 44)];
-        _settingBtn.imageEdgeInsets = UIEdgeInsetsMake(12, 15, 12, 3);
+        _settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        _settingBtn.imageEdgeInsets = UIEdgeInsetsMake(12, 24, 12, 0);
         [_settingBtn setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
         [_settingBtn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchDown];
     }
@@ -150,8 +171,9 @@
 - (UIView *)headView
 {
     if(!_headView){
-        _headView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 236)];
+        _headView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 246)];
         _headView.backgroundColor = [UIColor whiteColor];
+        _headView.userInteractionEnabled = YES;
         
         [_headView addSubview:self.imgView];
         [_headView addSubview:self.stateLabel];
@@ -161,6 +183,9 @@
         [_headView addSubview:self.usersLabel];
         [_headView addSubview:self.dateLabel];
         [_headView addSubview:self.addressBtn];
+        
+        [_headView addSubview:self.searchBar];
+        [_headView addSubview:self.datePickBtn];
     }
     return _headView;
 }
@@ -243,6 +268,29 @@
         [_addressBtn addTarget:self action:@selector(addressClick) forControlEvents:UIControlEventTouchDown];
     }
     return _addressBtn;
+}
+
+- (WBSearchBar *)searchBar
+{
+    if(!_searchBar){
+        _searchBar = [[WBSearchBar alloc] initWithFrame:CGRectMake(0, 198.5, SCREEN_WIDTH-44, 48)];
+        _searchBar.placeholder = @"输入姓名或手机号查找开锁记录";
+        _searchBar.delegate = self;
+        _searchBar.backgroundColor = HEX_RGB(0xeaeaf0);
+    }
+    return _searchBar;
+}
+
+- (UIButton *)datePickBtn
+{
+    if(!_datePickBtn){
+        _datePickBtn = [[UIButton alloc] initWithFrame:CGRectMake( SCREEN_WIDTH-44, 198.5, 44, 48)];
+        _datePickBtn.imageEdgeInsets = UIEdgeInsetsMake(15.5, 13, 15.5, 13);
+        [_datePickBtn setImage:[UIImage imageNamed:@"icon_rili"] forState:UIControlStateNormal];
+        [_datePickBtn addTarget:self action:@selector(datePickClick) forControlEvents:UIControlEventTouchDown];
+        _datePickBtn.backgroundColor = HEX_RGB(0xeaeaf0);
+    }
+    return _datePickBtn;
 }
 
 - (UIView *)footView

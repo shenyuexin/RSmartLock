@@ -13,8 +13,9 @@
 #import "RHomeContentView.h"
 #import "RAuthorizedManager.h"
 #import "RHomeCell.h"
+#import "WBSearchBar.h"
 
-@interface RHomeController ()
+@interface RHomeController ()<UISearchBarDelegate>
 
 @property (nonatomic, strong) UIImageView *launchImgView;
 @property (nonatomic, strong) UIButton *scanBtn;
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) UILabel *topLabela;
 @property (nonatomic, strong) UILabel *topLabelb;
 @property (nonatomic, strong) UILabel *topLabelc;
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) WBSearchBar *searchBar;
 
 @property (nonatomic, assign) BOOL isConfigured;
 @property (nonatomic, strong) NSMutableArray *dataList;
@@ -133,6 +134,17 @@
     [[WBMediator sharedManager] gotoLockInfoController:nil];
 }
 
+#pragma mark - UISearchBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    
+}
+
 #pragma mark - Getter
 - (UIImageView *)launchImgView
 {
@@ -229,11 +241,13 @@
     return _topLabelc;
 }
 
-- (UISearchBar *)searchBar
+- (WBSearchBar *)searchBar
 {
     if(!_searchBar){
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, 48)];
+        _searchBar = [[WBSearchBar alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, 48)];
         _searchBar.placeholder = @"输入锁序号查找锁";
+        _searchBar.delegate = self;
+        _searchBar.backgroundColor = HEX_RGB(0xeaeaf0);
     }
     return _searchBar;
 }

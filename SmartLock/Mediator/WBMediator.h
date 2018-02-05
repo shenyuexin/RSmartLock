@@ -55,4 +55,10 @@
 
 //前往编辑锁地址页面
 - (void)gotoAddressController;
+
+//前往设定许可人员页面
+- (void)gotoSetPersonController:(id)lock;
+
+//前往添加许可人员页面
+- (void)gotoAddPersonController:(id)lock;
 @end

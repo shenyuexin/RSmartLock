@@ -133,4 +133,25 @@
     [self gotoController:controller]; 
 }
 
+- (void)gotoSetPersonController:(id)lock
+{
+    UIViewController *controller = [self controllerWithName:@"RPersonViewController"];
+    SEL action = NSSelectorFromString(@"setLock:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [controller performSelector:action withObject:lock];
+#pragma clang diagnostic pop
+    [self gotoController:controller];
+}
+
+- (void)gotoAddPersonController:(id)lock
+{
+    UIViewController *controller = [self controllerWithName:@"RAddPersonViewController"];
+    SEL action = NSSelectorFromString(@"setLock:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [controller performSelector:action withObject:lock];
+#pragma clang diagnostic pop
+    [self gotoController:controller];
+}
 @end

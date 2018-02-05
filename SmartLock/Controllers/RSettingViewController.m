@@ -159,7 +159,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     }
     else if(indexPath.section == 1)
     {
-        
+        [[WBMediator sharedManager] gotoSetPersonController:nil];
     }
     else if(indexPath.section == 2)
     {
