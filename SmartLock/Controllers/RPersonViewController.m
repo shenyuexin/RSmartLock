@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) UIButton *addBtn;
 @property (nonatomic, strong) WBSearchBar *searchBar;
+@property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) WBSegView *segView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -45,6 +46,7 @@
 {
     [super viewWillAppear:animated];
     [self.view addSubview:self.searchBar];
+    [self.view addSubview:self.lineView];
     [self.view addSubview:self.segView];
     [self.view addSubview:self.collectionView];
 }
@@ -57,7 +59,7 @@
 #pragma mark - Event
 - (void)addClick
 {
-    
+    [[WBMediator sharedManager] gotoAddPersonController:_lock];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -153,10 +155,19 @@
     return _searchBar;
 }
 
+- (UIView *)lineView
+{
+    if(!_lineView){
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 53, SCREEN_WIDTH, PX1)];
+        _lineView.backgroundColor = HEX_RGB(0XDDDDDD);
+    }
+    return _lineView;
+}
+
 - (WBSegView *)segView
 {
     if(!_segView){
-        _segView = [[WBSegView alloc] initWithFrame:CGRectMake(0, 53-PX1, SCREEN_WIDTH, 44)];
+        _segView = [[WBSegView alloc] initWithFrame:CGRectMake(0, 53+PX1, SCREEN_WIDTH, 44-PX1)];
         _segView.backgroundColor = [UIColor whiteColor];
         _segView.delegate = self;
         _segView.selectColor = HEX_RGB(0x3684b5);

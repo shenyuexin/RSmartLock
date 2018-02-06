@@ -206,6 +206,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
         _tableView.dataSource = self;
         _tableView.delegate = self;

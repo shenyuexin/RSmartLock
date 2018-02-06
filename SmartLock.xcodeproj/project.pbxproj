@@ -78,6 +78,7 @@
 		7976F0F820284CBC00D09A25 /* RPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F0F720284CBC00D09A25 /* RPersonCell.m */; };
 		7976F0FB20284D6000D09A25 /* RPersonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F0FA20284D6000D09A25 /* RPersonInfo.m */; };
 		7976F0FE2028648C00D09A25 /* WBOrderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F0FD2028648C00D09A25 /* WBOrderViewCell.m */; };
+		7976F10120294CE300D09A25 /* RCustomizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F10020294CE300D09A25 /* RCustomizeCell.m */; };
 		7989F8E62011E46C0025E2FE /* RHomeContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E52011E46C0025E2FE /* RHomeContentView.m */; };
 		7989F8E92011E8710025E2FE /* RAuthorizedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E82011E8710025E2FE /* RAuthorizedManager.m */; };
 		7989F8EC2011F8ED0025E2FE /* RRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */; };
@@ -237,6 +238,8 @@
 		7976F0FA20284D6000D09A25 /* RPersonInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPersonInfo.m; sourceTree = "<group>"; };
 		7976F0FC2028648C00D09A25 /* WBOrderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBOrderViewCell.h; sourceTree = "<group>"; };
 		7976F0FD2028648C00D09A25 /* WBOrderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBOrderViewCell.m; sourceTree = "<group>"; };
+		7976F0FF20294CE300D09A25 /* RCustomizeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCustomizeCell.h; sourceTree = "<group>"; };
+		7976F10020294CE300D09A25 /* RCustomizeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCustomizeCell.m; sourceTree = "<group>"; };
 		7989F8E42011E46C0025E2FE /* RHomeContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHomeContentView.h; sourceTree = "<group>"; };
 		7989F8E52011E46C0025E2FE /* RHomeContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHomeContentView.m; sourceTree = "<group>"; };
 		7989F8E72011E8710025E2FE /* RAuthorizedManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAuthorizedManager.h; sourceTree = "<group>"; };
@@ -579,6 +582,8 @@
 				7976F0F720284CBC00D09A25 /* RPersonCell.m */,
 				7976F0FC2028648C00D09A25 /* WBOrderViewCell.h */,
 				7976F0FD2028648C00D09A25 /* WBOrderViewCell.m */,
+				7976F0FF20294CE300D09A25 /* RCustomizeCell.h */,
+				7976F10020294CE300D09A25 /* RCustomizeCell.m */,
 			);
 			name = Cells;
 			path = SmartLock/Cells;
@@ -748,6 +753,7 @@
 				79639D6B2004A2160080AB30 /* NSString+RemoveEmoji.m in Sources */,
 				79F3433A20246E2200BF6087 /* RRecordInfo.m in Sources */,
 				79639D772004A2160080AB30 /* UIButton+RoundLayer.m in Sources */,
+				7976F10120294CE300D09A25 /* RCustomizeCell.m in Sources */,
 				79639D6A2004A2160080AB30 /* UIColor+Theme.m in Sources */,
 				79639D652004A2160080AB30 /* UITextView+Limit.m in Sources */,
 				79293729200F49C300C0A970 /* RReportViewController.m in Sources */,

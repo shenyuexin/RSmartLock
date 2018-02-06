@@ -93,7 +93,7 @@ static char LineColorKey;
         line = [UIView new];
         UIColor *color = objc_getAssociatedObject(self, &LineColorKey);
         if(!color){
-            color = HEX_RGB(0xe6e6e6);
+            color = HEX_RGB(0xdddddd);
         }
         line.backgroundColor = color;
         [self setLine:line withType:type];
