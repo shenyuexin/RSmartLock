@@ -18,6 +18,7 @@ static NSInteger kErrorToken = 10008;
 
 @interface WBAPIManager()
 
+@property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, assign) BOOL isLogin;
 @property (nonatomic, strong) AFURLSessionManager *sessionManager;
 @end
@@ -39,7 +40,7 @@ static NSInteger kErrorToken = 10008;
     self = [super init];
     if(self){
 
-//        _accessToken = [WBStoreManager loadObjectForKey:kSaveToken];
+        _accessToken = [WBStoreManager loadObjectForKey:kSaveToken];
 //        _loginUser = [WBStoreManager loadObjectForKey:kSaveUser];
         
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -61,17 +62,13 @@ static NSInteger kErrorToken = 10008;
     [self.reachManager startMonitoring];
 }
 
-//- (void)setAccessToken:(WBAccessToken *)accessToken
-//{
-//    if(_accessToken == accessToken) return;
-//
-//    _accessToken = accessToken;
-//    [WBStoreManager saveObject:_accessToken forKey:kSaveToken];
-//
-//    [WBCookieManager saveCookie:_accessToken.uid forKey:@"uid"];
-//    [WBCookieManager saveCookie:_accessToken.token forKey:@"token"];
-////    [WBCookieManager saveCookie:deviceUniqueIdentifier().MD5 forKey:@"mm_wm_uuid"];
-//}
+- (void)setAccessToken:(NSString *)accessToken
+{
+    if(_accessToken == accessToken) return;
+
+    _accessToken = accessToken;
+    [WBStoreManager saveObject:_accessToken forKey:kSaveToken];
+}
 //
 //- (void)setLoginUser:(WBUserInfo *)loginUser
 //{
@@ -130,25 +127,23 @@ static NSInteger kErrorToken = 10008;
 {
     
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithDictionary:params];
-    if(self.isLogin){
-//        [parameters setObject:self.accessToken.token forKey:@"token"];
-//        if(!params[@"uid"]){
-//            [parameters setObject:self.accessToken.uid forKey:@"id"];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URL_API(method) parameters:params error:nil];
+//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"GET" URLString:URL_API(method) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        NSUInteger i = 0;
+//        NSUInteger count = images.count;
+//        for (i = 0 ; i < count; i++) {
+//            NSData *imgData = UIImageJPEGRepresentation(images[i], 0.3);
+//            NSString *imgName = [NSString stringWithFormat:@"img%ld",(unsigned long)(i+1)];
+//            [formData appendPartWithFileData:imgData
+//                                        name:imgName
+//                                    fileName:imgName
+//                                    mimeType:@"multipart/form-data"];
 //        }
+//    }error:nil];
+    [request setValue:APP_KEY forHTTPHeaderField:@"x-client-key"];
+    if(self.accessToken.isNotEmpty){
+        [request setValue:self.accessToken forHTTPHeaderField:@"x-client-token"];
     }
-    
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:URL_API(method) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSUInteger i = 0;
-        NSUInteger count = images.count;
-        for (i = 0 ; i < count; i++) {
-            NSData *imgData = UIImageJPEGRepresentation(images[i], 0.3);
-            NSString *imgName = [NSString stringWithFormat:@"img%ld",(unsigned long)(i+1)];
-            [formData appendPartWithFileData:imgData
-                                        name:imgName
-                                    fileName:imgName
-                                    mimeType:@"multipart/form-data"];
-        }
-    }error:nil];
     request.timeoutInterval = kTimeoutInterval + images.count * 10;
     return request;
 }
@@ -165,38 +160,23 @@ static NSInteger kErrorToken = 10008;
             }
             else{
                 //从服务器返回数据
-                if([responseObject isKindOfClass:[NSArray class]]){
-                    [subscriber sendNext:responseObject];
-                    [subscriber sendCompleted];
-                }else{
-                    NSString *errorMessage = responseObject[@"message"]?:responseObject[@"msg"];
-                    if(!errorMessage){
-                        errorMessage = @"请求出错";
-                    }
-                    if(responseObject[@"errorCode"] && [responseObject[@"errorCode"] integerValue] != kSuccessCode ){
-                        [subscriber sendError:[NSError errorWithDomain:errorMessage code:[responseObject[@"errorCode"] integerValue] userInfo:nil]];
-                        
-                        if([responseObject[@"errorCode"] integerValue] == kErrorToken){
-                            //Token失效重新登录
-                            [WBAPIManager notifyLogin];
-                        }
-                    }
-                    else if(responseObject[@"code"] && [responseObject[@"code"] integerValue] != kSuccessCode ){
-                        [subscriber sendError:[NSError errorWithDomain:errorMessage code:[responseObject[@"code"] integerValue] userInfo:nil]];
+                if([responseObject[@"status"] isEqualToString:@"SUCCESS"]){
+                    if(responseObject[@"t"]){
+                        [subscriber sendNext:responseObject[@"data"]];
+                        [subscriber sendCompleted];
                     }
                     else{
-                        if(responseObject[@"data"]){
-                            [subscriber sendNext:responseObject[@"data"]];
-                            [subscriber sendCompleted];
-                        }else{
-                            if(responseObject[@"result"] && [responseObject[@"result"] respondsToSelector:@selector(boolValue)] && ![responseObject[@"result"] boolValue]){
-                                [subscriber sendError:[NSError errorWithDomain:@"请求出错" code:0 userInfo:nil]];
-                            }else{
-                                [subscriber sendNext:responseObject];
-                                [subscriber sendCompleted];
-                            }
-                        }
+                        [subscriber sendNext:responseObject];
+                        [subscriber sendCompleted];
                     }
+                }
+                else if([responseObject[@"status"] isEqualToString:@"ACCESS_TOKEN_WRONG"] || [responseObject[@"status"] isEqualToString:@"SESSION_EXPIRY"]){
+                    [subscriber sendError:[NSError errorWithDomain:@"请重新登录" code:100 userInfo:nil]];
+                    [WBAPIManager notifyLogin];
+                }
+                else{
+                    NSString *errorMessage = responseObject[@"description"]?:@"请求出错";
+                    [subscriber sendError:[NSError errorWithDomain:errorMessage code:99 userInfo:nil]];
                 }
             }
         }];

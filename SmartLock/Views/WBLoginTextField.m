@@ -9,7 +9,7 @@
 #import "WBLoginTextField.h"
 #import "UITextField+Limit.h"
 #import "UICountingLabel.h"
-//#import "WBAPIManager+User.h"
+#import "WBAPIManager+Bussiness.h"
 #import "UITextField+CNLimit.h"
 #import "UIView+BorderLine.h"
 
@@ -181,6 +181,10 @@
         self.leftView = imgView;
         self.keyboardType = UIKeyboardTypeNumberPad;
         
+        self.layer.borderWidth = 0;
+        
+        [self addBorderLine:BorderLeft|BorderTop|BorderBottom];
+        
         self.leftWidth = 29;
         self.maxLength = 6;
     }
@@ -201,20 +205,18 @@
     [rightPresentView addSubview:self.codeBtn];
 }
 
-- (CGRect)clearButtonRectForBounds:(CGRect)bounds
-{
-    return CGRectMake(self.width-120, (self.height-14)/2, 14, 14);
-}
+//- (CGRect)clearButtonRectForBounds:(CGRect)bounds
+//{
+//    return CGRectMake(self.width-120, (self.height-14)/2, 14, 14);
+//}
 
 - (void)codeBtnClick:(UIButton *)sender
 {
-//    [[[WBAPIManager existMobilenum:_phoneTextfield.text] flattenMap:^RACStream *(NSNumber *isRegister) {
-//        return [WBAPIManager sendCode:_phoneTextfield.text];
-//    }] subscribeError:^(NSError *error) {
-//        [WBLoadingView showErrorStatus:error.domain];
-//    } completed:^{
-//        [self startCountDown];
-//    }];
+    [[WBAPIManager getSmsCode:_phoneTextfield.text] subscribeError:^(NSError *error) {
+        [WBLoadingView showErrorStatus:error.domain];
+    } completed:^{
+        [self startCountDown];
+    }];
 }
 
 - (void)setPhoneTextfield:(UITextField *)phoneTextfield
@@ -257,10 +259,11 @@
 - (UIButton *)codeBtn
 {
     if(!_codeBtn){
-        _codeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.right-90, self.top, 85, self.height)];
+        _codeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.right, self.top, 85, self.height)];
         _codeBtn.backgroundColor = [UIColor clearColor];
         [_codeBtn addTarget:self action:@selector(codeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_codeBtn addBorderLine:BorderLeft withHeight:30];
+        [_codeBtn addBorderLine:BorderBottom|BorderTop|BorderRight];
     }
     return _codeBtn;
 }

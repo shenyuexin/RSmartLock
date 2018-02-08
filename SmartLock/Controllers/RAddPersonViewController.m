@@ -9,11 +9,13 @@
 #import "RAddPersonViewController.h"
 #import "RCustomizeCell.h"
 #import "RPersonInfo.h"
+#import "RDatePickerView.h"
 
 @interface RAddPersonViewController ()
 
 @property (nonatomic, strong) NSArray *dataList;
 @property (nonatomic, strong) RPersonInfo *person;
+@property (nonatomic, strong) RDatePickerView *pickerView;
 @end
 
 @implementation RAddPersonViewController
@@ -116,13 +118,14 @@
         }
         case 3:
         {
-            if(_person.beginDate >0 && _person.endDate >0){
+            if(_person.beginDate.isNotEmpty && _person.endDate.isNotEmpty){
                 cell.txtField.text = _person.validDate;
             }
             else{
                 cell.txtField.placeholder = @"请输入";
             }
             cell.txtField.width = SCREEN_WIDTH - 150;
+            cell.txtField.enabled = NO;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
@@ -150,6 +153,7 @@
                 cell.txtField.placeholder = @"请输入";
             }
             cell.txtField.width = SCREEN_WIDTH - 150;
+            cell.txtField.enabled = NO;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
@@ -162,6 +166,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    
+    if(indexPath.row == 3){
+        [self.view addSubview:self.pickerView];
+        [self.pickerView show];
+    }
+}
+
+#pragma mark - Getter
+- (RDatePickerView *)pickerView
+{
+    if(!_pickerView){
+        _pickerView = [[RDatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:_pickerView];
+    }
+    return _pickerView;
 }
 @end

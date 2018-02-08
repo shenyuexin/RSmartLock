@@ -9,6 +9,7 @@
 #import "RLoginViewController.h"
 #import "WBLoginTextField.h"
 #import "WBLoginButton.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface RLoginViewController ()<UITextFieldDelegate>
 
@@ -145,7 +146,7 @@
 - (WBCodeTextField *)codeTextField
 {
     if(!_codeTextField){
-        _codeTextField = [[WBCodeTextField alloc] initWithFrame:CGRectMake(self.phoneTextField.left, self.phoneTextField.bottom+10, self.phoneTextField.width, self.phoneTextField.height)];
+        _codeTextField = [[WBCodeTextField alloc] initWithFrame:CGRectMake(self.phoneTextField.left, self.phoneTextField.bottom+10, self.phoneTextField.width-85, self.phoneTextField.height)];
         _codeTextField.placeholder = @"验证码";
         _codeTextField.rightPresentView = self.view;
         _codeTextField.phoneTextfield = _phoneTextField;

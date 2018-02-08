@@ -15,7 +15,6 @@
 
 @interface WBAPIManager : NSObject
 
-//@property (nonatomic, strong) WBAccessToken *accessToken;
 //@property (nonatomic, strong) WBUserInfo *loginUser;
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachManager;
 
@@ -30,10 +29,6 @@
 + (void)notifyLogin;
 
 - (NSString *)signWithParams:(NSDictionary *)params key:(NSString *)key;
-
-- (NSURLRequest *)requestWithMethod:(NSString *)method
-                             params:(NSDictionary *)params
-                        uploadImage:(NSDictionary *)image;
 
 - (NSURLRequest *)requestWithMethod:(NSString *)method
                              params:(NSDictionary *)params

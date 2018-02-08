@@ -9,8 +9,9 @@
 #ifndef APPMacro_h
 #define APPMacro_h
 
-#define URL_DOMAIN                   @"www.weimai.com"
+#define URL_DOMAIN                   @"http://47.92.155.39:5555/manager"
 #define URL_API(API)                 [NSString stringWithFormat:@"%@%@",URL_DOMAIN,API]
+#define APP_KEY                      @"x-ios-manager lU9ZCkpxiL9PW86QevPXhs"
 
 #define COLOR_BAR                    HEX_RGB(0x3684B5)
 
@@ -35,5 +36,7 @@
 #define __IOS11_                    ([UIDevice currentDevice].systemVersion.floatValue >= 11)
 
 #define __POSY_IPHONEX_             (__IPHONEX_?24:0)
+
+#define kSaveToken                   @"kSaveToken"
 
 #endif /* APPMacro_h */
