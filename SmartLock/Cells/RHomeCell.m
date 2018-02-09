@@ -41,38 +41,38 @@ NSString * const RHomeCellIdentifier = @"RHomeCellIdentifier";
     
     UIColor *tColor = nil;
     UIColor *nameColor = nil;
-//    if(_lock.enable){
+    if(_lock.enable){
         [_stateImgView removeFromSuperview];
         [self addSubview:self.stateLabel];
         
         self.imgView.image = [UIImage imageNamed:@"suo"];
         tColor = HEX_RGB(0X3DBA9C);
         nameColor = HEX_RGB(0X333333);
-//    }
-//    else{
-//        [_stateLabel removeFromSuperview];
-//        [self addSubview:self.stateImgView];
-//
-//        self.imgView.image = [UIImage imageNamed:@"suo_hui"];
-//        tColor = HEX_RGB(0X999999);
-//        nameColor = HEX_RGB(0X333333);
-//    }
+    }
+    else{
+        [_stateLabel removeFromSuperview];
+        [self addSubview:self.stateImgView];
+
+        self.imgView.image = [UIImage imageNamed:@"suo_hui"];
+        tColor = HEX_RGB(0X999999);
+        nameColor = HEX_RGB(0X333333);
+    }
     
-    NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n智能便携锁智",1000] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15], NSForegroundColorAttributeName:nameColor}];
+    NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n智能便携锁智",_lock.rid] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15], NSForegroundColorAttributeName:nameColor}];
     [name addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13], NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(name.length-6, 6)];
     self.nameLabel.attributedText = name;
     
     UIFont *font = [UIFont systemFontOfSize:14];
     UIFont *sfont = [UIFont systemFontOfSize:12];
-    NSMutableAttributedString *stringa = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n累计开锁次数",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
+    NSMutableAttributedString *stringa = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\n累计开锁次数",_lock.usage_count] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
     [stringa addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(stringa.length-6, 6)];
     self.usageLabel.attributedText = stringa;
     
-    NSMutableAttributedString *stringb = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n当前使用人数",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
+    NSMutableAttributedString *stringb = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\n当前使用人数",_lock.users] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
     [stringb addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(stringb.length-6, 6)];
     self.usersLabel.attributedText = stringb;
     
-    NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n下次自检时间",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
+    NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n下次自检时间",_lock.dateString] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
     [stringc addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(stringc.length-6, 6)];
     self.dateLabel.attributedText = stringc;
 }

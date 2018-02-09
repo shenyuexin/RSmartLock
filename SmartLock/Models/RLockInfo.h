@@ -6,12 +6,13 @@
 //  Copyright © 2018年 Richard Shen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "RBaseInfo.h"
 
-@interface RLockInfo : NSObject
+@interface RLockInfo : RBaseInfo
 
 @property (nonatomic, strong) NSString *rid;
 @property (nonatomic, assign) BOOL enable;
+@property (nonatomic, assign) NSInteger status;
 @property (nonatomic, assign) long usage_count;
 @property (nonatomic, assign) long users;
 @property (nonatomic, assign) long long timestamp;

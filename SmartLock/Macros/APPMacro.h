@@ -21,7 +21,7 @@
 
 #define kTimeoutInterval             10
 
-#define kDefaultPageNum              20
+#define kDefaultPageNum              10
 #define kDefaultPageMinNum           10
 
 #define PX1                         (1.0/[UIScreen mainScreen].scale)
@@ -38,5 +38,6 @@
 #define __POSY_IPHONEX_             (__IPHONEX_?24:0)
 
 #define kSaveToken                   @"kSaveToken"
+#define kNotificationInvalidToken    @"kNotificationInvalidToken"
 
 #endif /* APPMacro_h */

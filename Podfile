@@ -9,5 +9,7 @@ target 'SmartLock' do
 pod 'ReactiveCocoa','~>2.5'
 pod 'AFNetworking','~>3.1.0'
 pod 'FDFullscreenPopGesture'
+pod 'MJRefresh'
+pod 'MJExtension'
 
 end

@@ -7,8 +7,7 @@
 //
 
 #import "WBAPIManager+Bussiness.h"
-
-
+#import "RLockInfo.h"
 
 @implementation WBAPIManager (Bussiness)
 
@@ -32,6 +31,28 @@
 {
     WBAPIManager *manager = [self sharedManager];
     NSURLRequest *request = [manager requestWithMethod:@"/home/banner" params:nil uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        return data[@"banner"];
+    }];
+}
+
++ (RACSignal *)getHomeList:(NSInteger)page
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"offset":@(page*kDefaultPageNum),
+                             @"limit":@(kDefaultPageNum)};
+    NSURLRequest *request = [manager requestWithMethod:@"/home/smartlock/page" params:params uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        NSArray *array = [RLockInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];
+        return array;
+    }];
+}
+
++ (RACSignal *)getLockInfo:(NSString *)serialNum
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"serialNo":serialNum};
+    NSURLRequest *request = [manager requestWithMethod:@"/smartlock/banner" params:params uploadImages:nil];
     return [manager signalWithRequest:request];
 }
 

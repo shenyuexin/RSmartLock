@@ -12,6 +12,7 @@
 //#import "WBCookieManager.h"
 #import "APPMacro.h"
 #import "NSDate+BeeExtension.h"
+#import "WBMediator.h"
 
 static NSInteger kSuccessCode = 100000;
 static NSInteger kErrorToken = 10008;
@@ -80,12 +81,7 @@ static NSInteger kErrorToken = 10008;
 
 - (BOOL)isLogin
 {
-    static NSInteger i = 1;
-    if(i == 1){
-        i++;
-        return NO;
-    }
-    return YES;
+    return self.accessToken.isNotEmpty?YES:NO;
 }
 
 + (BOOL)isLogin
@@ -95,7 +91,7 @@ static NSInteger kErrorToken = 10008;
 
 + (void)notifyLogin
 {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInvalidToken object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInvalidToken object:nil];
 }
 
 #pragma mark - NSURLRequest
@@ -127,19 +123,19 @@ static NSInteger kErrorToken = 10008;
 {
     
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithDictionary:params];
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URL_API(method) parameters:params error:nil];
-//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"GET" URLString:URL_API(method) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        NSUInteger i = 0;
-//        NSUInteger count = images.count;
-//        for (i = 0 ; i < count; i++) {
-//            NSData *imgData = UIImageJPEGRepresentation(images[i], 0.3);
-//            NSString *imgName = [NSString stringWithFormat:@"img%ld",(unsigned long)(i+1)];
-//            [formData appendPartWithFileData:imgData
-//                                        name:imgName
-//                                    fileName:imgName
-//                                    mimeType:@"multipart/form-data"];
-//        }
-//    }error:nil];
+//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URL_API(method) parameters:params error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:URL_API(method) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSUInteger i = 0;
+        NSUInteger count = images.count;
+        for (i = 0 ; i < count; i++) {
+            NSData *imgData = UIImageJPEGRepresentation(images[i], 0.3);
+            NSString *imgName = [NSString stringWithFormat:@"img%ld",(unsigned long)(i+1)];
+            [formData appendPartWithFileData:imgData
+                                        name:imgName
+                                    fileName:imgName
+                                    mimeType:@"multipart/form-data"];
+        }
+    }error:nil];
     [request setValue:APP_KEY forHTTPHeaderField:@"x-client-key"];
     if(self.accessToken.isNotEmpty){
         [request setValue:self.accessToken forHTTPHeaderField:@"x-client-token"];
@@ -162,7 +158,11 @@ static NSInteger kErrorToken = 10008;
                 //从服务器返回数据
                 if([responseObject[@"status"] isEqualToString:@"SUCCESS"]){
                     if(responseObject[@"t"]){
-                        [subscriber sendNext:responseObject[@"data"]];
+                        NSString *token = responseObject[@"t"][@"accessToken"];
+                        if(token.isNotEmpty){
+                            self.accessToken = token;
+                        }
+                        [subscriber sendNext:responseObject[@"t"]];
                         [subscriber sendCompleted];
                     }
                     else{
@@ -172,7 +172,8 @@ static NSInteger kErrorToken = 10008;
                 }
                 else if([responseObject[@"status"] isEqualToString:@"ACCESS_TOKEN_WRONG"] || [responseObject[@"status"] isEqualToString:@"SESSION_EXPIRY"]){
                     [subscriber sendError:[NSError errorWithDomain:@"请重新登录" code:100 userInfo:nil]];
-                    [WBAPIManager notifyLogin];
+                    
+                    [[WBMediator sharedManager] gotoLoginControllerWithAnimate:YES];
                 }
                 else{
                     NSString *errorMessage = responseObject[@"description"]?:@"请求出错";

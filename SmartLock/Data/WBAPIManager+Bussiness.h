@@ -15,6 +15,8 @@
 + (RACSignal *)loginWithPhone:(NSString *)phone code:(NSString *)code;
 
 + (RACSignal *)getHomeBanner;
++ (RACSignal *)getHomeList:(NSInteger)page;
++ (RACSignal *)getLockInfo:(NSString *)serialNum;
 
 + (RACSignal *)stopLock:(NSString *)serialNum;
 + (RACSignal *)resetLock:(NSString *)serialNum;

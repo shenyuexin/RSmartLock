@@ -14,4 +14,10 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 - (void)backClick;
+
+/**获取数据*/
+- (void)fetchData;
+
+/**上拉获取更多数据*/
+- (void)fetchMoreData;
 @end

@@ -49,7 +49,6 @@
 #pragma mark - Event
 - (void)hideKeyBoard
 {
-//    self.logoImgView.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
         self.view.top = 0;
         [self.view endEditing:YES];
@@ -58,46 +57,48 @@
 
 - (void)loginClick:(UIButton *)sender
 {
-//    if(![self.phoneTextField.text isTelephone]){
-//        [WBLoadingView showErrorStatus:@"请输入11位有效手机号码"];
-//        return;
-//    }
-//
-//    if(![self.codeTextField.text isVerifyCode]){
-//        [WBLoadingView showErrorStatus:@"请输入6位验证码"];
-//        return;
-//    }
+    if(![self.phoneTextField.text isTelephone]){
+        [WBLoadingView showErrorStatus:@"请输入11位有效手机号码"];
+        return;
+    }
+
+    if(![self.codeTextField.text isVerifyCode]){
+        [WBLoadingView showErrorStatus:@"请输入6位验证码"];
+        return;
+    }
     
     [self hideKeyBoard];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [[WBAPIManager loginWithPhone:self.phoneTextField.text code:self.codeTextField.text] subscribeNext:^(id x) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } error:^(NSError *error) {
+        [WBLoadingView showErrorStatus:error.domain];
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//    if(textField == _phoneTextField){
-//        [_pwdTextField becomeFirstResponder];
+    if(textField == _phoneTextField){
+        [_codeTextField becomeFirstResponder];
         return YES;
-//    }
-//    else{
-//        if([_phoneTextField.text isNotEmpty] && [_pwdTextField.text isNotEmpty]){
-//            [self loginClick:nil];
-//            return YES;
-//        }
-//        else{
-//            return NO;
-//        }
-//    }
+    }
+    else{
+        if([_phoneTextField.text isNotEmpty] && [_codeTextField.text isNotEmpty]){
+            [self loginClick:nil];
+            return YES;
+        }
+        else{
+            return NO;
+        }
+    }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.view.top = - 130;
-//        self.bottomView.top = SCREEN_HEIGHT - 270 + 130;
-//    } completion:^(BOOL finished) {
-//        self.logoImgView.hidden = YES;
-//    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.top = - 130;
+    }];
     return YES;
 }
 

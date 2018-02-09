@@ -35,6 +35,11 @@
     return UIStatusBarStyleLightContent;
 }
 
+#pragma mark - Data
+- (void)fetchData{}
+
+- (void)fetchMoreData{}
+
 #pragma mark - Event
 - (void)backClick
 {

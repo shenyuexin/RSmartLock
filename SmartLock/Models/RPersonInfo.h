@@ -6,9 +6,9 @@
 //  Copyright © 2018年 Richard Shen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "RBaseInfo.h"
 
-@interface RPersonInfo : NSObject
+@interface RPersonInfo : RBaseInfo
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;

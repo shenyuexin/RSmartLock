@@ -81,6 +81,7 @@
 		7976F10120294CE300D09A25 /* RCustomizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F10020294CE300D09A25 /* RCustomizeCell.m */; };
 		7976F104202AE13800D09A25 /* RDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F103202AE13800D09A25 /* RDatePickerView.m */; };
 		7976F107202C251A00D09A25 /* WBAPIManager+Bussiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F105202C251A00D09A25 /* WBAPIManager+Bussiness.m */; };
+		7976F10A202D7FC400D09A25 /* RBaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F109202D7FC400D09A25 /* RBaseInfo.m */; };
 		7989F8E62011E46C0025E2FE /* RHomeContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E52011E46C0025E2FE /* RHomeContentView.m */; };
 		7989F8E92011E8710025E2FE /* RAuthorizedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E82011E8710025E2FE /* RAuthorizedManager.m */; };
 		7989F8EC2011F8ED0025E2FE /* RRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */; };
@@ -246,6 +247,8 @@
 		7976F103202AE13800D09A25 /* RDatePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RDatePickerView.m; sourceTree = "<group>"; };
 		7976F105202C251A00D09A25 /* WBAPIManager+Bussiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WBAPIManager+Bussiness.m"; sourceTree = "<group>"; };
 		7976F106202C251A00D09A25 /* WBAPIManager+Bussiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBAPIManager+Bussiness.h"; sourceTree = "<group>"; };
+		7976F108202D7FC400D09A25 /* RBaseInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBaseInfo.h; sourceTree = "<group>"; };
+		7976F109202D7FC400D09A25 /* RBaseInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBaseInfo.m; sourceTree = "<group>"; };
 		7989F8E42011E46C0025E2FE /* RHomeContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHomeContentView.h; sourceTree = "<group>"; };
 		7989F8E52011E46C0025E2FE /* RHomeContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHomeContentView.m; sourceTree = "<group>"; };
 		7989F8E72011E8710025E2FE /* RAuthorizedManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAuthorizedManager.h; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 		79651FD320049E8100A4759F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7976F108202D7FC400D09A25 /* RBaseInfo.h */,
+				7976F109202D7FC400D09A25 /* RBaseInfo.m */,
 				79F3432C202438EF00BF6087 /* RLockInfo.h */,
 				79F3432D202438EF00BF6087 /* RLockInfo.m */,
 				79F3433820246E2200BF6087 /* RRecordInfo.h */,
@@ -738,6 +743,7 @@
 				7976F0F820284CBC00D09A25 /* RPersonCell.m in Sources */,
 				1879796C2027020F00A7CA1F /* RPersonViewController.m in Sources */,
 				792936F420089D7800C0A970 /* UICountingLabel.m in Sources */,
+				7976F10A202D7FC400D09A25 /* RBaseInfo.m in Sources */,
 				7964C12D20171C9D00B8A1B5 /* RICVerifyViewController.m in Sources */,
 				79639D5B2004A2160080AB30 /* UIView+YSTextInputKeyboard.m in Sources */,
 				79639D7E2004A2160080AB30 /* NSData+BeeExtension.m in Sources */,

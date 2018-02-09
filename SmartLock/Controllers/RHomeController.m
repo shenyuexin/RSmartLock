@@ -14,6 +14,7 @@
 #import "RAuthorizedManager.h"
 #import "RHomeCell.h"
 #import "WBSearchBar.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface RHomeController ()<UISearchBarDelegate>
 
@@ -47,7 +48,6 @@
     self.tableView.rowHeight = 119;
     self.tableView.tableHeaderView = self.headView;
     [self.tableView registerClass:[RHomeCell class] forCellReuseIdentifier:RHomeCellIdentifier];
-    [self updateTopNum:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,7 +58,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.isConfigured = YES;
     [self.view addSubview:self.tableView];
 }
 
@@ -69,7 +68,25 @@
     if(![WBAPIManager isLogin]){
         [[WBMediator sharedManager] gotoLoginControllerWithAnimate:NO];
     }
+    else{
+        [self fetchData];
+    }
     [_launchImgView removeFromSuperview];_launchImgView = nil;
+}
+
+#pragma mark - Data
+- (void)fetchData
+{
+    RACSignal *bannerSignal = [WBAPIManager getHomeBanner];
+    [bannerSignal subscribeNext:^(NSDictionary *data) {
+        [self updateTopNum:data];
+    }];
+    
+    RACSignal *listSignal = [WBAPIManager getHomeList:0];
+    [listSignal subscribeNext:^(NSArray *list) {
+        self.dataList = list.mutableCopy;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Event
@@ -87,15 +104,15 @@
 {
     UIFont *font = [UIFont systemFontOfSize:20];
     UIFont *sfont = [UIFont systemFontOfSize:12];
-    NSMutableAttributedString *stringa = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n全部",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X3DBA9C)}];
+    NSMutableAttributedString *stringa = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\n全部",[dic[@"totalQuantity"] longValue]] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X3DBA9C)}];
     [stringa addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0X777777)} range:NSMakeRange(stringa.length-2, 2)];
     self.topLabela.attributedText = stringa;
     
-    NSMutableAttributedString *stringb = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n使用中",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X3DBA9C)}];
+    NSMutableAttributedString *stringb = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\n使用中",[dic[@"usedQuantity"] longValue]] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X3DBA9C)}];
     [stringb addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0X777777)} range:NSMakeRange(stringb.length-3, 3)];
     self.topLabelb.attributedText = stringb;
     
-    NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\n已停用",1000] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X999999)}];
+    NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\n已停用",[dic[@"disableQuantity"] longValue]] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:HEX_RGB(0X999999)}];
     [stringc addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0X777777)} range:NSMakeRange(stringc.length-3, 3)];
     self.topLabelc.attributedText = stringc;
 }
@@ -113,7 +130,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return self.dataList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -125,7 +142,7 @@
 {
     RHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:RHomeCellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.lock = nil;
+    cell.lock = self.dataList[indexPath.section];
     return cell;
 }
 
