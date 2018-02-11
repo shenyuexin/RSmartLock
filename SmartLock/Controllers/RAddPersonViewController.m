@@ -167,8 +167,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if(indexPath.row == 3){
-        [self.view addSubview:self.pickerView];
-        [self.pickerView show];
+        [self.pickerView showInView:self.view];
     }
 }
 
@@ -177,7 +176,6 @@
 {
     if(!_pickerView){
         _pickerView = [[RDatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [self.view addSubview:_pickerView];
     }
     return _pickerView;
 }

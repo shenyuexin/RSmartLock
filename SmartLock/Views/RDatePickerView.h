@@ -12,9 +12,8 @@
 
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic, strong) NSDate *beginDate;
-@property (nonatomic, strong) NSDate *endDate;
+@property (nonatomic, strong) NSString *beginDateString;
+@property (nonatomic, strong) NSString *endDateString;
 
-
-- (void)show;
+- (void)showInView:(UIView *)superview;
 @end

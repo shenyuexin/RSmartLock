@@ -45,24 +45,36 @@
     self.titleLabel.text = _title;
 }
 
-- (void)show
+- (void)showInView:(UIView *)superview
 {
+    [superview addSubview:self];
     [UIView animateWithDuration:0.2 animations:^{
         self.contentView.top = SCREEN_HEIGHT - 356;
     } completion:^(BOOL finished) {
         [self addSubview:self.cancelBtn];
     }];
+    
+    if(!self.beginDateString){
+        self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
+    }
+    else{
+        self.beginTextField.text = [self.datePicker.date stringWithDateFormat:@"yyyy-MM-dd"];
+    }
+    [self.beginTextField becomeFirstResponder];
 }
 
 #pragma mark - Event
 - (void)resetClick
 {
-    
+    self.beginTextField.text = nil;
+    self.endTextField.text = nil;
 }
 
 - (void)confirmClick
 {
-    
+    self.beginDateString = self.beginTextField.text;
+    self.endDateString = self.endTextField.text;
+    [self cancelClick];
 }
 
 - (void)cancelClick

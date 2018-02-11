@@ -10,6 +10,7 @@
 #import "RUsageCell.h"
 #import "UIImage+Color.h"
 #import "WBSearchBar.h"
+#import "RDatePickerView.h"
 
 @interface RLockInfoViewController ()<UISearchBarDelegate>
 
@@ -27,6 +28,7 @@
 
 @property (nonatomic, strong) UIView *footView;
 @property (nonatomic, strong) UIButton *uploadBtn;
+@property (nonatomic, strong) RDatePickerView *pickerView;
 @end
 
 @implementation RLockInfoViewController
@@ -107,7 +109,7 @@
 
 - (void)datePickClick
 {
-    
+    [self.pickerView showInView:self.view];
 }
 
 #pragma mark - UITableView
@@ -316,5 +318,14 @@
         [_uploadBtn addTarget:self action:@selector(uploadClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _uploadBtn;
+}
+
+- (RDatePickerView *)pickerView
+{
+    if(!_pickerView){
+        _pickerView = [[RDatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:_pickerView];
+    }
+    return _pickerView;
 }
 @end
