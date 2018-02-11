@@ -20,6 +20,8 @@
 
 + (RACSignal *)stopLock:(NSString *)serialNum;
 + (RACSignal *)resetLock:(NSString *)serialNum;
++ (RACSignal *)setLockAddress:(NSString *)address serialNum:(NSString *)serialNum;
+
 
 + (RACSignal *)addPerson:(RPersonInfo *)person toLock:(NSString *)serialNum;
 @end

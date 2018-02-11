@@ -148,7 +148,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    [[WBMediator sharedManager] gotoLockInfoController:nil];
+    RLockInfo *lock = self.dataList[indexPath.section];
+    [[WBMediator sharedManager] gotoLockInfoController:lock];
 }
 
 #pragma mark - UISearchBarDelegate

@@ -7,7 +7,9 @@
 //
 
 #import "RBaseViewController.h"
+#import "RLockInfo.h"
 
 @interface RSettingViewController : RBaseViewController
 
+@property (nonatomic, strong) RLockInfo *lock;
 @end

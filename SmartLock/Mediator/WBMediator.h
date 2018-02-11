@@ -54,7 +54,7 @@
 - (void)gotoLockInfoController:(id)lock;
 
 //前往编辑锁地址页面
-- (void)gotoAddressController;
+- (void)gotoAddressController:(id)lock;
 
 //前往设定许可人员页面
 - (void)gotoSetPersonController:(id)lock;

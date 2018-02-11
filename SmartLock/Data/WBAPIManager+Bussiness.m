@@ -72,6 +72,15 @@
     return [manager signalWithRequest:request];
 }
 
++ (RACSignal *)setLockAddress:(NSString *)address serialNum:(NSString *)serialNum
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"serialNo":serialNum,
+                             @"address":address};
+    NSURLRequest *request = [manager requestWithMethod:@"/merchant/smartlock/changeInfo" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+}
+
 + (RACSignal *)addPerson:(RPersonInfo *)person toLock:(NSString *)serialNum
 {
     WBAPIManager *manager = [self sharedManager];

@@ -8,6 +8,7 @@
 
 #import "RAddressViewController.h"
 #import "UIImage+Color.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface RAddressViewController ()
 
@@ -49,7 +50,15 @@
 
 - (void)submitClick
 {
-    
+    if(self.txtView.text.isNotEmpty && ![self.txtView.text isEqualToString:_lock.address]){
+        [[WBAPIManager setLockAddress:self.txtView.text serialNum:_lock.rid] subscribeNext:^(id x) {
+            _lock.address = self.txtView.text;
+            [WBLoadingView showSuccessStatus:@"修改锁地址成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } error:^(NSError *error) {
+            [WBLoadingView showErrorStatus:error.domain];
+        }];
+    }
 }
 
 
