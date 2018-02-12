@@ -11,6 +11,7 @@
 #import "UIImage+Color.h"
 #import "WBSearchBar.h"
 #import "RDatePickerView.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface RLockInfoViewController ()<UISearchBarDelegate>
 
@@ -29,6 +30,8 @@
 @property (nonatomic, strong) UIView *footView;
 @property (nonatomic, strong) UIButton *uploadBtn;
 @property (nonatomic, strong) RDatePickerView *pickerView;
+
+@property (nonatomic, strong) NSMutableArray *dataList;
 @end
 
 @implementation RLockInfoViewController
@@ -44,6 +47,14 @@
     self.tableView.tableHeaderView = self.headView;
     self.tableView.tableFooterView = self.footView;
     self.footView.userInteractionEnabled = YES;
+    
+    @weakify(self);
+    RACSignal *beiginSignal = RACObserve(self.pickerView, beginDateString).replayLazily;
+    RACSignal *endSignal = RACObserve(self.pickerView, endDateString).replayLazily;
+    [[RACSignal combineLatest:@[beiginSignal, endSignal]] subscribeCompleted:^{
+        @strongify(self);
+        [self fetchFilterData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,6 +101,27 @@
     [self.addressBtn setAttributedTitle:btnTitle forState:UIControlStateNormal];
 }
 
+#pragma mark - Data
+- (void)fetchData
+{
+    [[WBAPIManager getLockInfo:_lock.rid] subscribeNext:^(NSDictionary *data) {
+        self.lock = [RLockInfo mj_objectWithKeyValues:data];
+    }];
+    
+    [[WBAPIManager getLockRecords:_lock.rid keyWord:nil beginDate:nil endDate:nil page:0] subscribeNext:^(NSArray *array) {
+        self.dataList = array.mutableCopy;
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)fetchFilterData
+{
+    [[WBAPIManager getLockRecords:_lock.rid keyWord:self.searchBar.text beginDate:self.pickerView.beginDateString endDate:self.pickerView.endDateString page:0] subscribeNext:^(NSArray *array) {
+        self.dataList = array.mutableCopy;
+        [self.tableView reloadData];
+    }];
+}
+
 
 #pragma mark - Event
 - (void)settingClick
@@ -125,7 +157,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return self.dataList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -138,7 +170,7 @@
     RUsageCell *cell = [tableView dequeueReusableCellWithIdentifier:RUsageCellIdentifier forIndexPath:indexPath];
     cell.backgroundColor = self.tableView.backgroundColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.record = nil;
+    cell.record = self.dataList[indexPath.section];
     return cell;
 }
 
@@ -155,7 +187,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
+    [self fetchFilterData];
 }
 
 #pragma mark - Getter

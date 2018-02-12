@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RMessageInfo.h"
 
 FOUNDATION_EXTERN NSString * const RMessageCellIdentifier;
 
 @interface RMessageCell : UITableViewCell
 
-@property (nonatomic, strong) NSString *date;
-@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) RMessageInfo *message;
 @end

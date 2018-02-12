@@ -45,8 +45,8 @@
     UIWindow *widow = [[UIApplication sharedApplication] keyWindow];
     [widow addSubview:self.launchImgView];
     
+    self.tableView.frame = CGRectMake(0, self.headView.bottom, SCREEN_WIDTH, self.view.height-self.headView.bottom-self.navigationController.navigationBar.bottom);
     self.tableView.rowHeight = 119;
-    self.tableView.tableHeaderView = self.headView;
     [self.tableView registerClass:[RHomeCell class] forCellReuseIdentifier:RHomeCellIdentifier];
 }
 
@@ -58,6 +58,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.view addSubview:self.headView];
     [self.view addSubview:self.tableView];
 }
 
@@ -125,6 +126,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if(section == self.dataList.count-1){
+        return 10;
+    }
     return CGFLOAT_MIN;
 }
 

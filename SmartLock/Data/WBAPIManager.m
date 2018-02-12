@@ -172,7 +172,7 @@ static NSInteger kErrorToken = 10008;
                 }
                 else if([responseObject[@"status"] isEqualToString:@"ACCESS_TOKEN_WRONG"] || [responseObject[@"status"] isEqualToString:@"SESSION_EXPIRY"]){
                     [subscriber sendError:[NSError errorWithDomain:@"请重新登录" code:100 userInfo:nil]];
-                    
+                    self.accessToken = nil;
                     [[WBMediator sharedManager] gotoLoginControllerWithAnimate:YES];
                 }
                 else{

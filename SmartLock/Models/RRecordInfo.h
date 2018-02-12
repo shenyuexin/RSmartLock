@@ -11,9 +11,12 @@
 @interface RRecordInfo : RBaseInfo
 
 
-@property (nonatomic, strong) NSString *named;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *idNum;
-@property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSString *dateString;
 @property (nonatomic, strong) NSString *type;
+
+@property (nonatomic, assign) long long timestamp;
+@property (nonatomic, assign) NSInteger mode;
 @end

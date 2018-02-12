@@ -56,11 +56,8 @@
     
     if(!self.beginDateString){
         self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
+        [self.contentView addSubview:self.datePicker];
     }
-    else{
-        self.beginTextField.text = [self.datePicker.date stringWithDateFormat:@"yyyy-MM-dd"];
-    }
-    [self.beginTextField becomeFirstResponder];
 }
 
 #pragma mark - Event
@@ -105,6 +102,10 @@
     else{
         [self.beginTextField setLineColor:HEX_RGB(0xdddddd)];
     }
+    
+    if(!self.datePicker.superview){
+        [self.contentView addSubview:self.datePicker];
+    }
     return NO;
 }
 
@@ -132,7 +133,7 @@
         [_contentView addSubview:self.tipLabel];
         [_contentView addSubview:self.beginTextField];
         [_contentView addSubview:self.endTextField];
-        [_contentView addSubview:self.datePicker];
+//        [_contentView addSubview:self.datePicker];
     }
     return _contentView;
 }

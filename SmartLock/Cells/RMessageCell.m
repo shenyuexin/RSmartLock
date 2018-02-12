@@ -12,11 +12,23 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
 
 @interface RMessageCell()
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UIView *labelView;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) NSMutableParagraphStyle *labelStyle;
 @end
 
 @implementation RMessageCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if(self){
+        [self addSubview:self.dateLabel];
+        [self addSubview:self.labelView];
+    }
+    return self;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -29,25 +41,21 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
     // Configure the view for the selected state
 }
 
-- (void)setDate:(NSString *)date
+- (void)setMessage:(RMessageInfo *)message
 {
-    _date = date;
+    _message = message;
     
-    CGFloat width = [_date sizeWithFont:self.dateLabel.font byHeight:self.dateLabel.height].width;
-    self.dateLabel.text = _date;
+    CGFloat width = [_message.dateString sizeWithFont:self.dateLabel.font byHeight:self.dateLabel.height].width;
+    self.dateLabel.text = _message.dateString;
     self.dateLabel.width = width + 20;
     self.dateLabel.left = (self.width - width -20)/2;
-}
+    
+    self.titleLabel.text = _message.title;
 
-- (void)setContent:(NSString *)content
-{
-    _content = content;
-    
-    CGFloat height = [_content sizeWithFont:self.contentLabel.font byWidth:self.contentLabel.width-20].height;
-    self.contentLabel.height = height + 30;
-    
-    NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:_content attributes:@{ NSParagraphStyleAttributeName : self.labelStyle}];
-    _contentLabel.attributedText = attrText;
+    CGFloat height = [_message.content sizeWithFont:self.contentLabel.font byWidth:self.contentLabel.width-20].height;
+    self.contentLabel.height = height;
+
+    self.labelView.height = self.contentLabel.bottom + 20;
 }
 
 #pragma mark - Getter
@@ -61,22 +69,42 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
         _dateLabel.layer.cornerRadius = 4;
         _dateLabel.layer.masksToBounds = YES;
         _dateLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_dateLabel];
     }
     return _dateLabel;
+}
+
+- (UIView *)labelView
+{
+    if(!_labelView){
+        _labelView = [[UIView alloc] initWithFrame:CGRectMake(15, 42, self.width-30, 30)];
+        _labelView.backgroundColor = [UIColor whiteColor];
+        _labelView.layer.cornerRadius = 4;
+        _labelView.layer.masksToBounds = YES;
+        
+        [_labelView addSubview:_titleLabel];
+        [_labelView addSubview:_contentLabel];
+    }
+    return _labelView;
+}
+
+- (UILabel *)titleLabel
+{
+    if(!_titleLabel){
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, self.width-30, 17)];
+        _titleLabel.font = [UIFont systemFontOfSize:16];
+        _titleLabel.textColor = HEX_RGB(0x333333);
+        _titleLabel.numberOfLines = 1;
+    }
+    return _titleLabel;
 }
 
 - (UILabel *)contentLabel
 {
     if(!_contentLabel){
-        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 42, self.width-30, 15)];
-        _contentLabel.font = [UIFont systemFontOfSize:15];
-        _contentLabel.textColor = HEX_RGB(0x333333);
-        _contentLabel.backgroundColor = [UIColor whiteColor];
-        _contentLabel.layer.cornerRadius = 4;
-        _contentLabel.layer.masksToBounds = YES;
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 35, self.width-30, 14)];
+        _contentLabel.font = [UIFont systemFontOfSize:13];
+        _contentLabel.textColor = HEX_RGB(0x666666);
         _contentLabel.numberOfLines = 0;
-        [self addSubview:_contentLabel];
     }
     return _contentLabel;
 }

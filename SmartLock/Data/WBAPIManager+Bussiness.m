@@ -8,6 +8,8 @@
 
 #import "WBAPIManager+Bussiness.h"
 #import "RLockInfo.h"
+#import "RRecordInfo.h"
+#import "RMessageInfo.h"
 
 @implementation WBAPIManager (Bussiness)
 
@@ -56,6 +58,30 @@
     return [manager signalWithRequest:request];
 }
 
++ (RACSignal *)getLockRecords:(NSString *)serialNum
+                      keyWord:(NSString *)keyword
+                    beginDate:(NSString *)begin
+                      endDate:(NSString *)end
+                         page:(NSInteger)page
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSMutableDictionary *params = @{@"serialNo":serialNum,
+                                    @"offset":@(page*kDefaultPageNum),
+                                    @"limit":@(kDefaultPageNum)}.mutableCopy;
+    if(keyword.isNotEmpty){
+        [params setObject:keyword forKey:@"param"];
+    }
+    if(begin.isNotEmpty && end.isNotEmpty){
+        [params setObject:begin forKey:@"startUnlockTime"];
+        [params setObject:end forKey:@"endUnlockTime"];
+    }
+    NSURLRequest *request = [manager requestWithMethod:@"/unlockrecord/search" params:params uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        NSArray *array = [RRecordInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];
+        return array;
+    }];
+}
+
 + (RACSignal *)stopLock:(NSString *)serialNum
 {
     WBAPIManager *manager = [self sharedManager];
@@ -98,5 +124,17 @@
                              };
     NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/add" params:params uploadImages:nil];
     return [manager signalWithRequest:request];
+}
+
++ (RACSignal *)getMessagesWithPage:(NSInteger)page
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"offset":@(page*kDefaultPageNum),
+                             @"limit":@(kDefaultPageNum)};
+    NSURLRequest *request = [manager requestWithMethod:@"/notice/search" params:params uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        NSArray *array = [RMessageInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];
+        return array;
+    }];
 }
 @end
