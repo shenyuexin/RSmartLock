@@ -47,7 +47,9 @@
 - (void)gotoLoginControllerWithAnimate:(BOOL)animate
 {
     UIViewController *controller = [self controllerWithName:@"RLoginViewController"];
-    [self.topViewController presentViewController:controller animated:animate completion:nil];
+    [self.topViewController presentViewController:controller animated:animate completion:^{
+        [self.topViewController.navigationController popToRootViewControllerAnimated:NO];
+    }];
 }
 
 - (void)gotoQRCodeController

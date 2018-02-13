@@ -9,11 +9,13 @@
 #import "RSettingViewController.h"
 #import "UIImage+Color.h"
 #import "WBAPIManager+Bussiness.h"
+#import "RRatePickerView.h"
 
 @interface RSettingViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *dataList;
-
+@property (nonatomic, strong) RRatePickerView *pickerView;
+@property (nonatomic, strong) UILabel *rateLabel;
 @end
 
 static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
@@ -34,6 +36,14 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
     self.tableView.separatorColor = HEX_RGB(0xdddddd);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:RSettingCellIdentifier];
+    
+    @weakify(self);
+    RACSignal *rateSignal = RACObserve(self.pickerView, rateString);
+    [rateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        self.rateLabel.text = self.pickerView.rateString;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,6 +158,10 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     else{
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
     }
+    
+    if(indexPath.section == 0){
+        [cell addSubview:self.rateLabel];
+    }
     return cell;
 }
 
@@ -156,7 +170,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
 
     if(indexPath.section == 0)
     {
-        
+        [self.pickerView showInView:[UIApplication sharedApplication].keyWindow];
     }
     else if(indexPath.section == 1)
     {
@@ -197,5 +211,25 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+#pragma mark - Getter
+- (RRatePickerView *)pickerView
+{
+    if(!_pickerView){
+        _pickerView = [[RRatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    }
+    return _pickerView;
+}
+
+- (UILabel *)rateLabel
+{
+    if(!_rateLabel){
+        _rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 17, SCREEN_WIDTH-150, 17)];
+        _rateLabel.font = [UIFont systemFontOfSize:15];
+        _rateLabel.textColor = HEX_RGB(0x000000);
+        _rateLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _rateLabel;
 }
 @end

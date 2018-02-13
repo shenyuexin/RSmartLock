@@ -45,10 +45,10 @@ NSString * const RUsageCellIdentifier = @"RUsageCellIdentifier";
 {
     _record = record;
     
-    self.nameLabel.text = @"张三 2018-02-02 18:17:11";
-    self.typeLabel.text = @"IC开锁";
-    self.idLabel.text = @"身份证号: 331223388933311223333";
-    self.phoneLabel.text = @"联系方式: 159575488004";
+    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@",_record.name, _record.dateString];
+    self.typeLabel.text = _record.type;
+    self.idLabel.text = [NSString stringWithFormat:@"身份证号: %@", _record.idNum];
+    self.phoneLabel.text = [NSString stringWithFormat:@"联系方式: %@", _record.phone];
 }
 
 

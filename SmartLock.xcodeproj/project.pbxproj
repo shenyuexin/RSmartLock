@@ -10,6 +10,8 @@
 		187979692026D8A200A7CA1F /* RAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187979682026D8A200A7CA1F /* RAddressViewController.m */; };
 		1879796C2027020F00A7CA1F /* RPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879796B2027020F00A7CA1F /* RPersonViewController.m */; };
 		7915F537203190B20091D716 /* RMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7915F536203190B20091D716 /* RMessageInfo.m */; };
+		7915F53A2032B74D0091D716 /* RPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7915F5392032B74D0091D716 /* RPickerView.m */; };
+		7915F53D2032BBB80091D716 /* RRatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7915F53C2032BBB80091D716 /* RRatePickerView.m */; };
 		792936EE20088AB600C0A970 /* RLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936ED20088AB600C0A970 /* RLoginViewController.m */; };
 		792936F120088AC700C0A970 /* RQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936F020088AC700C0A970 /* RQRCodeViewController.m */; };
 		792936F420089D7800C0A970 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 792936F320089D7800C0A970 /* UICountingLabel.m */; };
@@ -105,6 +107,10 @@
 		1879796B2027020F00A7CA1F /* RPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPersonViewController.m; sourceTree = "<group>"; };
 		7915F535203190B20091D716 /* RMessageInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMessageInfo.h; sourceTree = "<group>"; };
 		7915F536203190B20091D716 /* RMessageInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMessageInfo.m; sourceTree = "<group>"; };
+		7915F5382032B74D0091D716 /* RPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPickerView.h; sourceTree = "<group>"; };
+		7915F5392032B74D0091D716 /* RPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPickerView.m; sourceTree = "<group>"; };
+		7915F53B2032BBB80091D716 /* RRatePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRatePickerView.h; sourceTree = "<group>"; };
+		7915F53C2032BBB80091D716 /* RRatePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRatePickerView.m; sourceTree = "<group>"; };
 		792936EC20088AB600C0A970 /* RLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLoginViewController.h; sourceTree = "<group>"; };
 		792936ED20088AB600C0A970 /* RLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RLoginViewController.m; sourceTree = "<group>"; };
 		792936EF20088AC700C0A970 /* RQRCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RQRCodeViewController.h; sourceTree = "<group>"; };
@@ -564,8 +570,12 @@
 				79F3432F2024523700BF6087 /* WBSearchBar.m */,
 				7976F0F42028465800D09A25 /* WBSegView.h */,
 				7976F0F32028465800D09A25 /* WBSegView.m */,
+				7915F5382032B74D0091D716 /* RPickerView.h */,
+				7915F5392032B74D0091D716 /* RPickerView.m */,
 				7976F102202AE13800D09A25 /* RDatePickerView.h */,
 				7976F103202AE13800D09A25 /* RDatePickerView.m */,
+				7915F53B2032BBB80091D716 /* RRatePickerView.h */,
+				7915F53C2032BBB80091D716 /* RRatePickerView.m */,
 			);
 			name = Views;
 			path = SmartLock/Views;
@@ -764,6 +774,7 @@
 				79D073762011D9C3000203C2 /* RMessageCell.m in Sources */,
 				7964C1242015E1C200B8A1B5 /* RFingerPrintCell.m in Sources */,
 				7929372F201075FC00C0A970 /* RSettingViewController.m in Sources */,
+				7915F53D2032BBB80091D716 /* RRatePickerView.m in Sources */,
 				79639D802004A2160080AB30 /* UIView+ScreenShot.m in Sources */,
 				7964C12A201709DD00B8A1B5 /* RPrintingViewController.m in Sources */,
 				79639D7C2004A2160080AB30 /* NSString+BeeExtension.m in Sources */,
@@ -812,6 +823,7 @@
 				7929372C200F4B4700C0A970 /* RReportCell.m in Sources */,
 				7964C11E2015E05500B8A1B5 /* RFingerprintViewController.m in Sources */,
 				79639D812004A2160080AB30 /* UIImage+Resize.m in Sources */,
+				7915F53A2032B74D0091D716 /* RPickerView.m in Sources */,
 				79639D5C2004A2160080AB30 /* UIView+ScaleAnimation.m in Sources */,
 				79639D752004A2160080AB30 /* UITextField+Limit.m in Sources */,
 				79D0737120108729000203C2 /* RPasswordViewController.m in Sources */,

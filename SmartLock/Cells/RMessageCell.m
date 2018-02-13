@@ -54,6 +54,7 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
 
     CGFloat height = [_message.content sizeWithFont:self.contentLabel.font byWidth:self.contentLabel.width-20].height;
     self.contentLabel.height = height;
+    self.contentLabel.text = _message.content;
 
     self.labelView.height = self.contentLabel.bottom + 20;
 }
@@ -76,13 +77,13 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
 - (UIView *)labelView
 {
     if(!_labelView){
-        _labelView = [[UIView alloc] initWithFrame:CGRectMake(15, 42, self.width-30, 30)];
+        _labelView = [[UIView alloc] initWithFrame:CGRectMake(15, 42, SCREEN_WIDTH-30, 30)];
         _labelView.backgroundColor = [UIColor whiteColor];
         _labelView.layer.cornerRadius = 4;
         _labelView.layer.masksToBounds = YES;
         
-        [_labelView addSubview:_titleLabel];
-        [_labelView addSubview:_contentLabel];
+        [_labelView addSubview:self.titleLabel];
+        [_labelView addSubview:self.contentLabel];
     }
     return _labelView;
 }
@@ -94,6 +95,7 @@ NSString * const RMessageCellIdentifier = @"RMessageCellIdentifier";
         _titleLabel.font = [UIFont systemFontOfSize:16];
         _titleLabel.textColor = HEX_RGB(0x333333);
         _titleLabel.numberOfLines = 1;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLabel;
 }

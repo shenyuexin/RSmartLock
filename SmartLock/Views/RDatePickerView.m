@@ -14,12 +14,6 @@
 {
     UITextField *_curTextField;
 }
-@property (nonatomic, strong) UIButton *cancelBtn;
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIButton *resetBtn;
-@property (nonatomic, strong) UIButton *confirmBtn;
-@property (nonatomic, strong) UILabel *titleLabel;
-
 @property (nonatomic, strong) UITextField *beginTextField;
 @property (nonatomic, strong) UITextField *endTextField;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -33,35 +27,28 @@
 {
     self = [super initWithFrame:frame];
     if(self){
-        self.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.contentView];
+        [_contentView addSubview:self.tipLabel];
+        [_contentView addSubview:self.beginTextField];
+        [_contentView addSubview:self.endTextField];
+        
+        _titleLabel.text = @"请选择开锁有效期";
+        [_resetBtn setTitle:@"重置" forState:UIControlStateNormal];
+        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
     }
     return self;
 }
 
-- (void)setTitle:(NSString *)title
-{
-    _title = title;
-    self.titleLabel.text = _title;
-}
-
 - (void)showInView:(UIView *)superview
-{
-    [superview addSubview:self];
-    [UIView animateWithDuration:0.2 animations:^{
-        self.contentView.top = SCREEN_HEIGHT - 356;
-    } completion:^(BOOL finished) {
-        [self addSubview:self.cancelBtn];
-    }];
-    
-    if(!self.beginDateString){
+{    
+    [super showInView:superview];
+    if(self.beginDateString){
         self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
-        [self.contentView addSubview:self.datePicker];
+        [_contentView addSubview:self.datePicker];
     }
 }
 
 #pragma mark - Event
-- (void)resetClick
+- (void)cancelClick
 {
     self.beginTextField.text = nil;
     self.endTextField.text = nil;
@@ -69,19 +56,16 @@
 
 - (void)confirmClick
 {
+    NSDate *beginDate = [NSDate dateWithString:self.beginTextField.text];
+    NSDate *endDate = [NSDate dateWithString:self.endTextField.text];
+    if([beginDate compare:endDate] == NSOrderedDescending){
+        [WBLoadingView showErrorStatus:@"开始时间不能大于结束时间"];
+        return;
+    }
+    
     self.beginDateString = self.beginTextField.text;
     self.endDateString = self.endTextField.text;
-    [self cancelClick];
-}
-
-- (void)cancelClick
-{
-    [self.cancelBtn removeFromSuperview];
-    [UIView animateWithDuration:0.2 animations:^{
-        self.contentView.top = SCREEN_HEIGHT;
-    } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
+    [self dismissClick];
 }
 
 - (void)dateChange:(UIDatePicker *)picker
@@ -98,83 +82,32 @@
     
     if(_curTextField == self.beginTextField){
         [self.endTextField setLineColor:HEX_RGB(0xdddddd)];
+        if(self.beginDateString){
+            self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
+        }
+        else{
+            self.beginTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd"];
+        }
     }
     else{
         [self.beginTextField setLineColor:HEX_RGB(0xdddddd)];
+        
+        if(self.endDateString){
+            self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.endDateString];
+        }
+        else{
+            self.endTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd"];
+        }
     }
     
     if(!self.datePicker.superview){
-        [self.contentView addSubview:self.datePicker];
+        [_contentView addSubview:self.datePicker];
     }
+
     return NO;
 }
 
 #pragma mark - Getter
-- (UIButton *)cancelBtn
-{
-    if(!_cancelBtn){
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-356)];
-        _cancelBtn.backgroundColor = HEX_RGBA(0x000000, 0.5);
-        [_cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _cancelBtn;
-}
-
-- (UIView *)contentView
-{
-    if(!_contentView){
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 356)];
-        _contentView.backgroundColor = [UIColor whiteColor];
-        
-        [_contentView addSubview:self.titleLabel];
-        [_contentView addSubview:self.resetBtn];
-        [_contentView addSubview:self.confirmBtn];
-        
-        [_contentView addSubview:self.tipLabel];
-        [_contentView addSubview:self.beginTextField];
-        [_contentView addSubview:self.endTextField];
-//        [_contentView addSubview:self.datePicker];
-    }
-    return _contentView;
-}
-
-- (UILabel *)titleLabel
-{
-    if(!_titleLabel){
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 42)];
-        _titleLabel.font = [UIFont systemFontOfSize:16];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = HEX_RGB(0x666666);
-        _titleLabel.text = @"请选择开锁有效期";
-        [_titleLabel addBorderLine:BorderBottom];
-    }
-    return _titleLabel;
-}
-
-- (UIButton *)resetBtn
-{
-    if(!_resetBtn){
-        _resetBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 44, 46)];
-        [_resetBtn setTitle:@"重置" forState:UIControlStateNormal];
-        [_resetBtn setTitleColor:HEX_RGB(0x666666) forState:UIControlStateNormal];
-        _resetBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_resetBtn addTarget:self action:@selector(resetClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _resetBtn;
-}
-
-- (UIButton *)confirmBtn
-{
-    if(!_confirmBtn){
-        _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-54, 0, 44, 46)];
-        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_confirmBtn setTitleColor:HEX_RGB(0x3dba9c) forState:UIControlStateNormal];
-        _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_confirmBtn addTarget:self action:@selector(confirmClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _confirmBtn;
-}
-
 - (UILabel *)tipLabel
 {
     if(!_tipLabel){

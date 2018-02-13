@@ -55,6 +55,8 @@
         @strongify(self);
         [self fetchFilterData];
     }];
+    
+    [self fetchData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -266,7 +268,7 @@
 {
     if(!_usageLabel){
         _usageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 104.5, (SCREEN_WIDTH-20)/3, 44)];
-        _usageLabel.textAlignment = NSTextAlignmentLeft;
+        _usageLabel.textAlignment = NSTextAlignmentCenter;
         _usageLabel.numberOfLines = 2;
     }
     return _usageLabel;

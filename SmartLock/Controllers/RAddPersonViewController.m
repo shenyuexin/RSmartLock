@@ -10,12 +10,14 @@
 #import "RCustomizeCell.h"
 #import "RPersonInfo.h"
 #import "RDatePickerView.h"
+#import "RRatePickerView.h"
 
 @interface RAddPersonViewController ()
 
 @property (nonatomic, strong) NSArray *dataList;
 @property (nonatomic, strong) RPersonInfo *person;
 @property (nonatomic, strong) RDatePickerView *pickerView;
+@property (nonatomic, strong) RRatePickerView *ratePickerView;
 @end
 
 @implementation RAddPersonViewController
@@ -26,6 +28,8 @@
     self.navigationItem.title = @"添加人员";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveClick)];
     
+    _person = [RPersonInfo new];
+    
     self.tableView.rowHeight = 51;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
@@ -33,7 +37,23 @@
     [self.tableView registerClass:[RCustomizeCell class] forCellReuseIdentifier:RCustomizeCellIdentifier];
     self.dataList = @[@"姓名",@"手机号",@"身份证号",@"有效期",
                       @"密码锁",@"IC卡开锁",@"指纹开锁",@"认证频度"];
-
+    
+    @weakify(self);
+    RACSignal *endSignal = RACObserve(self.pickerView, endDateString);
+    [endSignal  subscribeNext:^(id x) {
+        @strongify(self);
+        self.person.beginDate = self.pickerView.beginDateString;
+        self.person.endDate = self.pickerView.endDateString;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    RACSignal *rateSignal = RACObserve(self.ratePickerView, rateMode);
+    [rateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        self.person.rate = self.ratePickerView.rate;
+        self.person.rateMode = self.ratePickerView.rateMode;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:7 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,7 +70,6 @@
 #pragma mark - Event
 - (void)saveClick
 {
-    
     RCustomizeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
     _person.pwdEnable = cell.rswitch.isOn;
     RCustomizeCell *cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
@@ -146,8 +165,8 @@
         }
         case 7:
         {
-            if(_person.rate > 0){
-                cell.txtField.text = @"一周一次";
+            if(_person.rateString.isNotEmpty){
+                cell.txtField.text = _person.rateString;
             }
             else{
                 cell.txtField.placeholder = @"请输入";
@@ -167,7 +186,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if(indexPath.row == 3){
-        [self.pickerView showInView:self.view];
+        [self.pickerView showInView:[UIApplication sharedApplication].keyWindow];
+    }
+    else if(indexPath.row == 7){
+        [self.ratePickerView showInView:[UIApplication sharedApplication].keyWindow];
     }
 }
 
@@ -178,5 +200,13 @@
         _pickerView = [[RDatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     }
     return _pickerView;
+}
+
+- (RRatePickerView *)ratePickerView
+{
+    if(!_ratePickerView){
+        _ratePickerView = [[RRatePickerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    }
+    return _ratePickerView;
 }
 @end

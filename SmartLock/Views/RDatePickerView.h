@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RPickerView.h"
 
-@interface RDatePickerView : UIView
+@interface RDatePickerView : RPickerView
 
-@property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSString *beginDateString;
 @property (nonatomic, strong) NSString *endDateString;

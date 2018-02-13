@@ -136,7 +136,7 @@ NSString * const RHomeCellIdentifier = @"RHomeCellIdentifier";
 {
     if(!_usageLabel){
         _usageLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 67, (self.width-80)/3, 44)];
-        _usageLabel.textAlignment = NSTextAlignmentLeft;
+        _usageLabel.textAlignment = NSTextAlignmentCenter;
         _usageLabel.numberOfLines = 2;
         [self addSubview:_usageLabel];
     }

@@ -19,4 +19,24 @@
     return [NSString stringWithFormat:@"%@ 至 %@", _beginDate,_endDate];
 }
 
+- (NSString *)rateString
+{
+    if(_rateMode > 0 && _rate > 0){
+        switch (_rateMode) {
+            case 0:
+                _rateString = [NSString stringWithFormat:@"%ld天1次",_rate];
+                break;
+            case 1:
+                _rateString = [NSString stringWithFormat:@"%ld周1次",_rate];
+                break;
+            case 2:
+                _rateString = [NSString stringWithFormat:@"%ld月1次",_rate];
+                break;
+            default:
+                break;
+        }
+    }
+    return _rateString;
+}
+
 @end

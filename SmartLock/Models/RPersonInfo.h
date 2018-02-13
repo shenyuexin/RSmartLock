@@ -26,4 +26,5 @@
 
 @property (nonatomic, assign) NSInteger rate;       //数
 @property (nonatomic, assign) NSInteger rateMode;   //天：10,周：20，月：30
+@property (nonatomic, strong) NSString *rateString; 
 @end

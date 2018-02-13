@@ -25,7 +25,7 @@
 - (NSString *)dateString
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:_timestamp/1000];
-    _dateString = [date stringWithDateFormat:@"yyyy-MM-dd"];
+    _dateString = [date stringWithDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     return _dateString;
 }
 
