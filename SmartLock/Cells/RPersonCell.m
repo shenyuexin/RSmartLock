@@ -71,12 +71,12 @@ NSString * const RPersonCellIdentifier = @"RPersonCellIdentifier";
         self.recordsBtn.frame = CGRectMake(self.editBtn.right, 103, (SCREEN_WIDTH-20)/2, 39);
     }
     
-    self.dateLabel.text = @"2018-02-05 至 2019-02-05";
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ 至 %@",_person.beginDate,_person.endDate];;
     [self.dateLabel sizeToFit];
-    self.nameLabel.text = @"张三";
-    self.typeLabel.text = @"IC开锁";
-    self.idLabel.text = @"身份证号: 331223388933311223333";
-    self.phoneLabel.text = @"联系方式: 159575488004";
+    self.nameLabel.text = _person.name;
+    self.idLabel.text = [NSString stringWithFormat:@"身份证号: %@", _person.idNum];
+    self.phoneLabel.text = [NSString stringWithFormat:@"联系方式: %@", _person.phone];
+    self.typeLabel.text = _person.lockModeString;
 }
 
 #pragma mark - Event

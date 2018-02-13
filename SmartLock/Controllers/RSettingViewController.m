@@ -174,7 +174,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     }
     else if(indexPath.section == 1)
     {
-        [[WBMediator sharedManager] gotoSetPersonController:nil];
+        [[WBMediator sharedManager] gotoSetPersonController:_lock];
     }
     else if(indexPath.section == 2)
     {

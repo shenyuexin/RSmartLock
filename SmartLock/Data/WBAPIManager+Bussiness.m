@@ -137,4 +137,19 @@
         return array;
     }];
 }
+
++ (RACSignal *)getLockUsers:(NSString *)serialNum enable:(BOOL)enable page:(NSInteger)page
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"serialNo":serialNum,
+                             @"offset":@(page*kDefaultPageNum),
+                             @"limit":@(kDefaultPageNum),
+                             @"status":(enable?@(10):@(20))
+                             };
+    NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/search" params:params uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        NSArray *array = [RPersonInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];
+        return array;
+    }];
+}
 @end

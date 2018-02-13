@@ -70,9 +70,14 @@
     [self gotoController:controller];
 }
 
-- (void)gotoSettingController
+- (void)gotoSettingController:(id)lock
 {
     UIViewController *controller = [self controllerWithName:@"RSettingViewController"];
+    SEL action = NSSelectorFromString(@"setLock:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [controller performSelector:action withObject:lock];
+#pragma clang diagnostic pop
     [self gotoController:controller];
 }
 

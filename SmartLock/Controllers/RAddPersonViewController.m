@@ -138,7 +138,7 @@
         case 3:
         {
             if(_person.beginDate.isNotEmpty && _person.endDate.isNotEmpty){
-                cell.txtField.text = _person.validDate;
+                cell.txtField.text = [NSString stringWithFormat:@"%@ 至 %@",_person.beginDate,_person.endDate];
             }
             else{
                 cell.txtField.placeholder = @"请输入";

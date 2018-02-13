@@ -27,7 +27,7 @@
 - (void)gotoReportController;
 
 //前往设置页
-- (void)gotoSettingController;
+- (void)gotoSettingController:(id)lock;
 
 //前往修改密码页
 - (void)gotoModifyPasswordController;

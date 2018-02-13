@@ -18,7 +18,6 @@
 + (RACSignal *)getHomeList:(NSInteger)page;
 + (RACSignal *)getLockInfo:(NSString *)serialNum;
 
-
 /**
  *  获取锁开锁记录
  *
@@ -45,4 +44,7 @@
 
 //获取系统消息列表
 + (RACSignal *)getMessagesWithPage:(NSInteger)page;
+
+//获取锁使用用户列表
++ (RACSignal *)getLockUsers:(NSString *)serialNum enable:(BOOL)enable page:(NSInteger)page;
 @end

@@ -107,7 +107,7 @@
 - (void)fetchData
 {
     [[WBAPIManager getLockInfo:_lock.rid] subscribeNext:^(NSDictionary *data) {
-        self.lock = [RLockInfo mj_objectWithKeyValues:data];
+        self.lock = [RLockInfo mj_objectWithKeyValues:data[@"banner"]];
     }];
     
     [[WBAPIManager getLockRecords:_lock.rid keyWord:nil beginDate:nil endDate:nil page:0] subscribeNext:^(NSArray *array) {
@@ -128,7 +128,7 @@
 #pragma mark - Event
 - (void)settingClick
 {
-    [[WBMediator sharedManager] gotoSettingController];
+    [[WBMediator sharedManager] gotoSettingController:_lock];
 }
 
 - (void)addressClick

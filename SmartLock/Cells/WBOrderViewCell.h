@@ -15,6 +15,7 @@ FOUNDATION_EXTERN NSString * const WBOrderViewCellIdentifier;
 @property (nonatomic, assign) NSInteger index;
 //不用类型的订单数据
 @property (nonatomic, weak) NSMutableDictionary *data;
+@property (nonatomic, strong) NSString *lockId;
 
 - (void)updateData;
 @end

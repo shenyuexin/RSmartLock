@@ -34,7 +34,7 @@
     self.navigationItem.title = @"设定开锁许可人员";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addBtn];
     
-    self.segView.itmes = @[@"当前使用人员(20)",@"历史使用人员(30)"];
+    self.segView.itmes = @[@"当前使用人员",@"历史使用人员"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,11 +94,11 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WBOrderViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBOrderViewCellIdentifier forIndexPath:indexPath];
+    cell.lockId = _lock.rid;
     cell.index = indexPath.row;
     cell.data = self.dataList;
     return cell;
 }
-
 
 #pragma mark - UIScrollDelegate
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset

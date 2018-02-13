@@ -8,6 +8,7 @@
 
 #import "WBOrderViewCell.h"
 #import "RPersonCell.h"
+#import "WBAPIManager+Bussiness.h"
 
 NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 
@@ -63,34 +64,28 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 #pragma mark - Data
 - (void)fetchData
 {
-//    RACSignal *dataSignal = nil;
-//    if(_listType == OrderListSell){
-//        dataSignal = [WBAPIManager getOrdersWithPage:1 type:_index];
-//    }
-//    else{
-//        dataSignal = [WBAPIManager ordersWithStatus:_index page:1];
-//    }
-//    [[dataSignal takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(NSArray *orders) {
-//        self.dataList = orders.mutableCopy;
-//        if(self.dataList.count > 0){
-//            [self.data setObject:self.dataList forKey:@(_index)];
-//        }
-//
-//        [self.tableView reloadData];
-//        [self updateFooterByReceiveCount:orders.count];
+    RACSignal *dataSignal = [WBAPIManager getLockUsers:_lockId enable:(_index==0?YES:NO) page:0];
+    [[dataSignal takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(NSArray *orders) {
+        self.dataList = orders.mutableCopy;
+        if(self.dataList.count > 0){
+            [self.data setObject:self.dataList forKey:@(_index)];
+        }
+
+        [self.tableView reloadData];
+        [self updateFooterByReceiveCount:orders.count];
 //        [self.tableView.mj_header endRefreshing];
-//
-//        if(self.dataList.count == 0){
-//            [self.tableView addSubview:self.noResultsView];
-//        }
-//        else{
-//            [self.noResultsView removeFromSuperview];
-//        }
-//    } error:^(NSError *error) {
+
+        if(self.dataList.count == 0){
+            [self.tableView addSubview:self.noResultsView];
+        }
+        else{
+            [self.noResultsView removeFromSuperview];
+        }
+    } error:^(NSError *error) {
 //        [self.tableView.mj_header endRefreshing];
-//        [WBLoadingView showErrorStatus:error.domain];
-//        [self.tableView addSubview:self.noResultsView];
-//    }];
+        [WBLoadingView showErrorStatus:error.domain];
+        [self.tableView addSubview:self.noResultsView];
+    }];
 }
 
 - (void)fetchMoreData
@@ -174,7 +169,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return 3;//self.dataList.count;
+    return self.dataList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -185,7 +180,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RPersonCell *cell = [tableView dequeueReusableCellWithIdentifier:RPersonCellIdentifier forIndexPath:indexPath];
-    cell.person = nil;
+    cell.person = self.dataList[indexPath.section];
     return cell;
 }
 
