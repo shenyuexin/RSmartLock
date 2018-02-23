@@ -49,6 +49,7 @@
     [self.view addSubview:self.lineView];
     [self.view addSubview:self.segView];
     [self.view addSubview:self.collectionView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPersonListUpdate object:nil];
 }
 
 - (void)setLock:(RLockInfo *)lock
@@ -94,7 +95,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WBOrderViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBOrderViewCellIdentifier forIndexPath:indexPath];
-    cell.lockId = _lock.rid;
+    cell.lockId = _lock.lid;
     cell.index = indexPath.row;
     cell.data = self.dataList;
     return cell;

@@ -152,4 +152,20 @@
         return array;
     }];
 }
+
++ (RACSignal *)startLockUser:(NSString *)pid
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"id":pid};
+    NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/start" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+}
+
++ (RACSignal *)stopLockUser:(NSString *)pid
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"id":pid};
+    NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/stop" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+}
 @end

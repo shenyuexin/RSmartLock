@@ -39,5 +39,7 @@
 
 #define kSaveToken                   @"kSaveToken"
 #define kNotificationInvalidToken    @"kNotificationInvalidToken"
+#define kNotificationPersonListUpdate  @"kNotificationPersonListUpdate"
+#define kNotificationPersonCellUpdate  @"kNotificationPersonCellUpdate"
 
 #endif /* APPMacro_h */

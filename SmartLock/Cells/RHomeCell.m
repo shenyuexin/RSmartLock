@@ -58,7 +58,7 @@ NSString * const RHomeCellIdentifier = @"RHomeCellIdentifier";
         nameColor = HEX_RGB(0X333333);
     }
     
-    NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n智能便携锁智",_lock.rid] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15], NSForegroundColorAttributeName:nameColor}];
+    NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n智能便携锁智",_lock.lid] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15], NSForegroundColorAttributeName:nameColor}];
     [name addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13], NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(name.length-6, 6)];
     self.nameLabel.attributedText = name;
     

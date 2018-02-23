@@ -51,7 +51,7 @@
 - (void)submitClick
 {
     if(self.txtView.text.isNotEmpty && ![self.txtView.text isEqualToString:_lock.address]){
-        [[WBAPIManager setLockAddress:self.txtView.text serialNum:_lock.rid] subscribeNext:^(id x) {
+        [[WBAPIManager setLockAddress:self.txtView.text serialNum:_lock.lid] subscribeNext:^(id x) {
             _lock.address = self.txtView.text;
             [WBLoadingView showSuccessStatus:@"修改锁地址成功"];
             [self.navigationController popViewControllerAnimated:YES];

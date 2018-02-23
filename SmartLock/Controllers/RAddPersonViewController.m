@@ -11,6 +11,7 @@
 #import "RPersonInfo.h"
 #import "RDatePickerView.h"
 #import "RRatePickerView.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface RAddPersonViewController ()
 
@@ -70,12 +71,46 @@
 #pragma mark - Event
 - (void)saveClick
 {
-    RCustomizeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
-    _person.pwdEnable = cell.rswitch.isOn;
-    RCustomizeCell *cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-    _person.icEnable = cell1.rswitch.isOn;
-    RCustomizeCell *cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6 inSection:0]];
-    _person.fgpEnable = cell2.rswitch.isOn;
+    RCustomizeCell *cell0 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    _person.name = cell0.txtField.text;
+    if(!_person.name.isNotEmpty){
+        [WBLoadingView showErrorStatus:@"姓名不能为空"];
+        return;
+    }
+    if(![_person.name isUserNameContainChinese:2 maxLength:20]){
+        [WBLoadingView showErrorStatus:@"姓名不能含有特殊字符"];
+        return;
+    }
+    
+    RCustomizeCell *cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    _person.phone = cell1.txtField.text;
+    if(!_person.phone.isTelephone){
+        [WBLoadingView showErrorStatus:@"请输入11位手机号"];
+        return;
+    }
+    
+    RCustomizeCell *cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    _person.idNum = cell2.txtField.text;
+    if(!_person.phone.isIdNum){
+        [WBLoadingView showErrorStatus:@"请输入合法身份证号"];
+        return;
+    }
+    
+    RCustomizeCell *cell4 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    _person.pwdEnable = cell4.rswitch.isOn;
+    
+    RCustomizeCell *cell5 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+    _person.icEnable = cell5.rswitch.isOn;
+    
+    RCustomizeCell *cell6 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6 inSection:0]];
+    _person.fgpEnable = cell6.rswitch.isOn;
+    
+    [[WBAPIManager addPerson:_person toLock:_lock.lid] subscribeNext:^(id x) {
+        [WBLoadingView showSuccessStatus:@"添加用户成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    } error:^(NSError *error) {
+        [WBLoadingView showErrorStatus:error.domain];
+    }];
 }
 
 #pragma mark - UITableView

@@ -14,4 +14,5 @@ FOUNDATION_EXTERN NSString * const RPersonCellIdentifier;
 @interface RPersonCell : UITableViewCell
 
 @property (nonatomic, strong) RPersonInfo *person;
+@property (nonatomic, assign) NSInteger type;
 @end

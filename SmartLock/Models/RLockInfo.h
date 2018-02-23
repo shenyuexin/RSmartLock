@@ -10,7 +10,7 @@
 
 @interface RLockInfo : RBaseInfo
 
-@property (nonatomic, strong) NSString *rid;
+@property (nonatomic, strong) NSString *lid;
 @property (nonatomic, assign) BOOL enable;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, assign) long usage_count;

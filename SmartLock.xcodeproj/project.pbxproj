@@ -88,6 +88,7 @@
 		7989F8E62011E46C0025E2FE /* RHomeContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E52011E46C0025E2FE /* RHomeContentView.m */; };
 		7989F8E92011E8710025E2FE /* RAuthorizedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E82011E8710025E2FE /* RAuthorizedManager.m */; };
 		7989F8EC2011F8ED0025E2FE /* RRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */; };
+		79B1DB4420400806004B32A6 /* PPersonRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B1DB4320400806004B32A6 /* PPersonRecordsViewController.m */; };
 		79D0737120108729000203C2 /* RPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D0737020108729000203C2 /* RPasswordViewController.m */; };
 		79D073762011D9C3000203C2 /* RMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D073752011D9C3000203C2 /* RMessageCell.m */; };
 		79D073792011D9DC000203C2 /* RRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D073782011D9DC000203C2 /* RRecordCell.m */; };
@@ -264,6 +265,8 @@
 		7989F8E82011E8710025E2FE /* RAuthorizedManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAuthorizedManager.m; sourceTree = "<group>"; };
 		7989F8EA2011F8ED0025E2FE /* RRecordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRecordsViewController.h; sourceTree = "<group>"; };
 		7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRecordsViewController.m; sourceTree = "<group>"; };
+		79B1DB4220400806004B32A6 /* PPersonRecordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPersonRecordsViewController.h; sourceTree = "<group>"; };
+		79B1DB4320400806004B32A6 /* PPersonRecordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPersonRecordsViewController.m; sourceTree = "<group>"; };
 		79D0736F20108729000203C2 /* RPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPasswordViewController.h; sourceTree = "<group>"; };
 		79D0737020108729000203C2 /* RPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPasswordViewController.m; sourceTree = "<group>"; };
 		79D073742011D9C3000203C2 /* RMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMessageCell.h; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				1879796B2027020F00A7CA1F /* RPersonViewController.m */,
 				7976F0F02028444C00D09A25 /* RAddPersonViewController.h */,
 				7976F0F12028444C00D09A25 /* RAddPersonViewController.m */,
+				79B1DB4220400806004B32A6 /* PPersonRecordsViewController.h */,
+				79B1DB4320400806004B32A6 /* PPersonRecordsViewController.m */,
 			);
 			name = Controllers;
 			path = SmartLock/Controllers;
@@ -804,6 +809,7 @@
 				79639D6C2004A2160080AB30 /* UIImage+Decoded.m in Sources */,
 				79639D602004A2160080AB30 /* UIView+Utils.m in Sources */,
 				79651FCC20049D9300A4759F /* main.m in Sources */,
+				79B1DB4420400806004B32A6 /* PPersonRecordsViewController.m in Sources */,
 				79639D5D2004A2160080AB30 /* StickyHeaderLayout.m in Sources */,
 				187979692026D8A200A7CA1F /* RAddressViewController.m in Sources */,
 				79293717200C8B8100C0A970 /* RHomeBottomView.m in Sources */,
@@ -951,6 +957,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.richard.SmartLock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wno-unknown-escape-sequence";
 			};
 			name = Debug;
 		};
@@ -968,6 +975,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.richard.SmartLock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wno-unknown-escape-sequence";
 			};
 			name = Release;
 		};

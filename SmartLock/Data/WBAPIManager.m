@@ -14,8 +14,8 @@
 #import "NSDate+BeeExtension.h"
 #import "WBMediator.h"
 
-static NSInteger kSuccessCode = 100000;
-static NSInteger kErrorToken = 10008;
+//static NSInteger kSuccessCode = 100000;
+//static NSInteger kErrorToken = 10008;
 
 @interface WBAPIManager()
 

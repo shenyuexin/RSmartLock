@@ -12,7 +12,6 @@
 
 @interface RReportViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UIButton *submitBtn;
 @property (nonatomic, strong) NSArray *dataList;

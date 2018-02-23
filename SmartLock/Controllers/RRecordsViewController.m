@@ -11,7 +11,6 @@
 
 @interface RRecordsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation RRecordsViewController

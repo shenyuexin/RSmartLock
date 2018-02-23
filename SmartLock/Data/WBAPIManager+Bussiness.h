@@ -47,4 +47,8 @@
 
 //获取锁使用用户列表
 + (RACSignal *)getLockUsers:(NSString *)serialNum enable:(BOOL)enable page:(NSInteger)page;
+
++ (RACSignal *)startLockUser:(NSString *)pid;
++ (RACSignal *)stopLockUser:(NSString *)pid;
+
 @end

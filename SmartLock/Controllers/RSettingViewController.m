@@ -190,7 +190,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     }
     else if(indexPath.section == 3)
     {
-        [[WBAPIManager stopLock:_lock.rid] subscribeNext:^(id x) {
+        [[WBAPIManager stopLock:_lock.lid] subscribeNext:^(id x) {
             [WBLoadingView showSuccessStatus:@"停用成功"];
             _lock.status = 90;
         }];
@@ -204,7 +204,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
         }]];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [[WBAPIManager resetLock:_lock.rid] subscribeNext:^(id x) {
+            [[WBAPIManager resetLock:_lock.lid] subscribeNext:^(id x) {
                 [WBLoadingView showSuccessStatus:@"重置成功"];
                 [self.tableView reloadData];
             }];

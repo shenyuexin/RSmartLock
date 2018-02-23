@@ -13,7 +13,7 @@
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    return @{@"rid":@"serialNo",
+    return @{@"lid":@"serialNo",
              @"usage_count":@"unlockTimes",
              @"users":@"useTimes",
              @"timestamp":@"nextDetectionTime"};

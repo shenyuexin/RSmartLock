@@ -106,11 +106,11 @@
 #pragma mark - Data
 - (void)fetchData
 {
-    [[WBAPIManager getLockInfo:_lock.rid] subscribeNext:^(NSDictionary *data) {
+    [[WBAPIManager getLockInfo:_lock.lid] subscribeNext:^(NSDictionary *data) {
         self.lock = [RLockInfo mj_objectWithKeyValues:data[@"banner"]];
     }];
     
-    [[WBAPIManager getLockRecords:_lock.rid keyWord:nil beginDate:nil endDate:nil page:0] subscribeNext:^(NSArray *array) {
+    [[WBAPIManager getLockRecords:_lock.lid keyWord:nil beginDate:nil endDate:nil page:0] subscribeNext:^(NSArray *array) {
         self.dataList = array.mutableCopy;
         [self.tableView reloadData];
     }];
@@ -118,7 +118,7 @@
 
 - (void)fetchFilterData
 {
-    [[WBAPIManager getLockRecords:_lock.rid keyWord:self.searchBar.text beginDate:self.pickerView.beginDateString endDate:self.pickerView.endDateString page:0] subscribeNext:^(NSArray *array) {
+    [[WBAPIManager getLockRecords:_lock.lid keyWord:self.searchBar.text beginDate:self.pickerView.beginDateString endDate:self.pickerView.endDateString page:0] subscribeNext:^(NSArray *array) {
         self.dataList = array.mutableCopy;
         [self.tableView reloadData];
     }];

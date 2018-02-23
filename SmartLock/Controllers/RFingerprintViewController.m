@@ -11,7 +11,7 @@
 
 @interface RFingerprintViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -102,25 +102,25 @@
     }
 }
 #pragma mark - Getter
-- (UITableView *)tableView
-{
-    if(!_tableView){
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) style:UITableViewStylePlain];
-        _tableView.scrollsToTop = YES;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
-        _tableView.separatorColor = HEX_RGB(0xdddddd);
-        _tableView.rowHeight = 51;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = RGB(235, 235, 241);
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        [_tableView registerClass:[RFingerPrintCell class] forCellReuseIdentifier:RFingerPrintCellIdentifier];
-    }
-    return _tableView;
-}
+//- (UITableView *)tableView
+//{
+//    if(!_tableView){
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) style:UITableViewStylePlain];
+//        _tableView.scrollsToTop = YES;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        _tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+//        _tableView.separatorColor = HEX_RGB(0xdddddd);
+//        _tableView.rowHeight = 51;
+//        _tableView.dataSource = self;
+//        _tableView.delegate = self;
+//        _tableView.backgroundColor = RGB(235, 235, 241);
+//        _tableView.estimatedRowHeight = 0;
+//        _tableView.estimatedSectionHeaderHeight = 0;
+//        _tableView.estimatedSectionFooterHeight = 0;
+//        [_tableView registerClass:[RFingerPrintCell class] forCellReuseIdentifier:RFingerPrintCellIdentifier];
+//    }
+//    return _tableView;
+//}
 
 - (UIView *)headerView
 {

@@ -26,8 +26,8 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 {
     self = [super initWithFrame:frame];
     if(self){
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderStatusChange:) name:kNotificationOrderSatausChange object:nil];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:kNotificationOrderListUpdate object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusChange:) name:kNotificationPersonCellUpdate object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:kNotificationPersonListUpdate object:nil];
         [self.tableView registerClass:[RPersonCell class] forCellReuseIdentifier:RPersonCellIdentifier];
 
     }
@@ -130,24 +130,24 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 }
 
 #pragma mark - Event
-- (void)orderStatusChange:(NSNotification *)notification
+- (void)statusChange:(NSNotification *)notification
 {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        WBMineOrderDetailCell *cell = notification.object;
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//
-//        if(cell.type == _index && indexPath.section >=0 && indexPath.section < self.dataList.count){
-//            [self.dataList removeObjectAtIndex:indexPath.section];
-//
-//            [self.tableView beginUpdates];
-//            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
-//            [self.tableView endUpdates];
-//
-//            if(self.dataList.count == 0){
-//                [self.tableView addSubview:self.noResultsView];
-//            }
-//        }
-//    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        RPersonCell *cell = notification.object;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+        if(cell.type == _index && indexPath.section >=0 && indexPath.section < self.dataList.count){
+            [self.dataList removeObjectAtIndex:indexPath.section];
+
+            [self.tableView beginUpdates];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(_index==0)? UITableViewRowAnimationRight:UITableViewRowAnimationLeft];
+            [self.tableView endUpdates];
+
+            if(self.dataList.count == 0){
+                [self.tableView addSubview:self.noResultsView];
+            }
+        }
+    });
 }
 
 #pragma mark - UITableView
@@ -181,6 +181,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 {
     RPersonCell *cell = [tableView dequeueReusableCellWithIdentifier:RPersonCellIdentifier forIndexPath:indexPath];
     cell.person = self.dataList[indexPath.section];
+    cell.type = _index;
     return cell;
 }
 

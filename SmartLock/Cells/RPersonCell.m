@@ -8,6 +8,7 @@
 
 #import "RPersonCell.h"
 #import "UIView+BorderLine.h"
+#import "WBAPIManager+Bussiness.h"
 
 NSString * const RPersonCellIdentifier = @"RPersonCellIdentifier";
 
@@ -82,12 +83,26 @@ NSString * const RPersonCellIdentifier = @"RPersonCellIdentifier";
 #pragma mark - Event
 - (void)enableClick
 {
-    
+    [[WBAPIManager startLockUser:_person.pid] subscribeNext:^(id x) {
+        [WBLoadingView showSuccessStatus:@"启用成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPersonCellUpdate object:self];
+        });
+    } error:^(NSError *error) {
+        [WBLoadingView showErrorStatus:@"启用失败"];
+    }];
 }
 
 - (void)disableClick
 {
-    
+    [[WBAPIManager stopLockUser:_person.pid] subscribeNext:^(id x) {
+        [WBLoadingView showSuccessStatus:@"停用成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPersonCellUpdate object:self];
+        });
+    } error:^(NSError *error) {
+        [WBLoadingView showErrorStatus:@"停用失败"];
+    }];
 }
 
 - (void)editClick
