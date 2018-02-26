@@ -41,5 +41,6 @@
 #define kNotificationInvalidToken    @"kNotificationInvalidToken"
 #define kNotificationPersonListUpdate  @"kNotificationPersonListUpdate"
 #define kNotificationPersonCellUpdate  @"kNotificationPersonCellUpdate"
+#define kNotificationPersonSearchUpdate  @"kNotificationPersonSearchUpdate"
 
 #endif /* APPMacro_h */

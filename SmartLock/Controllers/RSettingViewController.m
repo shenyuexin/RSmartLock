@@ -39,10 +39,11 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     
     @weakify(self);
     RACSignal *rateSignal = RACObserve(self.pickerView, rateString);
-    [rateSignal subscribeNext:^(id x) {
+    [[rateSignal skip:1] subscribeNext:^(NSNumber *value) {
         @strongify(self);
         self.rateLabel.text = self.pickerView.rateString;
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [self updateLockRate];
     }];
 }
 
@@ -55,6 +56,16 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Data
+- (void)updateLockRate
+{
+    [[WBAPIManager setLockRate:self.pickerView.rate rateMode:self.pickerView.rateMode serialNum:_lock.lid] subscribeNext:^(id x) {
+        [WBLoadingView showSuccessStatus:@"设定认证频度成功"];
+    } error:^(NSError *error) {
+        [WBLoadingView showErrorStatus:error.domain];
+    }];
 }
 
 #pragma mark - Event
@@ -161,6 +172,9 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     
     if(indexPath.section == 0){
         [cell addSubview:self.rateLabel];
+        if(_lock.rateString.isNotEmpty){
+            self.rateLabel.text = _lock.rateString;
+        }
     }
     return cell;
 }

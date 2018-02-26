@@ -96,6 +96,7 @@
         self.stateLabel.hidden = YES;
         [_stateLabel removeFromSuperview];
     }
+    self.nameLabel.text = _lock.lid;
     
     @weakify(self);
     [RACObserve(self.lock, address) subscribeNext:^(id x) {

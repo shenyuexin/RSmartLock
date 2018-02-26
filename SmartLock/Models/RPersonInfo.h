@@ -11,6 +11,7 @@
 @interface RPersonInfo : RBaseInfo
 
 @property (nonatomic, strong) NSString *pid;
+@property (nonatomic, strong) NSString *mid;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *idNum;

@@ -124,6 +124,19 @@
     return [manager signalWithRequest:request];
 }
 
++ (RACSignal *)setLockRate:(NSInteger )rate
+                  rateMode:(NSInteger)rateMode
+                 serialNum:(NSString *)serialNum
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"serialNo":serialNum,
+                             @"frequency":@(rate),
+                             @"frequencyMode":@(rateMode)};
+    NSURLRequest *request = [manager requestWithMethod:@"/merchant/smartlock/changeInfo" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+
+}
+
 + (RACSignal *)addPerson:(RPersonInfo *)person toLock:(NSString *)serialNum
 {
     WBAPIManager *manager = [self sharedManager];
@@ -143,6 +156,26 @@
     return [manager signalWithRequest:request];
 }
 
++ (RACSignal *)editPerson:(RPersonInfo *)person toLock:(NSString *)serialNum
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"id":person.mid,
+                             @"serialNo":serialNum,
+                             @"mobile":person.phone,
+                             @"realName":person.name,
+                             @"identityCard":person.idNum,
+                             @"useStartTime":person.beginDate,
+                             @"useEndTime":person.endDate,
+                             @"isPinCode":@(person.isPinCode),
+                             @"isIcCode":@(person.isIcCode),
+                             @"isFingerprintCode":@(person.isFingerprintCode),
+                             @"frequency":@(person.rate),
+                             @"frequencyMode":@(person.rateMode),
+                             };
+    NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/edit" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+}
+
 + (RACSignal *)getMessagesWithPage:(NSInteger)page
 {
     WBAPIManager *manager = [self sharedManager];
@@ -155,14 +188,20 @@
     }];
 }
 
-+ (RACSignal *)getLockUsers:(NSString *)serialNum enable:(BOOL)enable page:(NSInteger)page
++ (RACSignal *)getLockUsers:(NSString *)serialNum
+                  searchKey:(NSString *)key
+                     enable:(BOOL)enable
+                       page:(NSInteger)page
 {
     WBAPIManager *manager = [self sharedManager];
-    NSDictionary *params = @{@"serialNo":serialNum,
-                             @"offset":@(page*kDefaultPageNum),
-                             @"limit":@(kDefaultPageNum),
-                             @"status":(enable?@(10):@(20))
-                             };
+    NSMutableDictionary *params = @{@"serialNo":serialNum,
+                                    @"offset":@(page*kDefaultPageNum),
+                                    @"limit":@(kDefaultPageNum),
+                                    @"status":(enable?@(10):@(20))
+                                    }.mutableCopy;
+    if(key.isNotEmpty){
+        [params setObject:key forKey:@"param"];
+    }
     NSURLRequest *request = [manager requestWithMethod:@"/member/smartlock/search" params:params uploadImages:nil];
     return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
         NSArray *array = [RPersonInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];

@@ -23,6 +23,7 @@
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
     return @{@"pid":@"id",
+             @"mid":@"memberId",
              @"name":@"realName",
              @"idNum":@"identityCard",
              @"phone":@"mobile",

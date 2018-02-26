@@ -43,14 +43,21 @@
 + (RACSignal *)resetLock:(NSString *)serialNum;
 + (RACSignal *)setLockAddress:(NSString *)address serialNum:(NSString *)serialNum;
 
++ (RACSignal *)setLockRate:(NSInteger )rate
+                  rateMode:(NSInteger)rateMode
+                 serialNum:(NSString *)serialNum;
 
 + (RACSignal *)addPerson:(RPersonInfo *)person toLock:(NSString *)serialNum;
++ (RACSignal *)editPerson:(RPersonInfo *)person toLock:(NSString *)serialNum;
 
 //获取系统消息列表
 + (RACSignal *)getMessagesWithPage:(NSInteger)page;
 
 //获取锁使用用户列表
-+ (RACSignal *)getLockUsers:(NSString *)serialNum enable:(BOOL)enable page:(NSInteger)page;
++ (RACSignal *)getLockUsers:(NSString *)serialNum
+                  searchKey:(NSString *)key
+                     enable:(BOOL)enable
+                       page:(NSInteger)page;
 
 + (RACSignal *)startLockUser:(NSString *)pid;
 + (RACSignal *)stopLockUser:(NSString *)pid;

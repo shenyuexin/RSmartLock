@@ -71,7 +71,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPersonSearchUpdate object:searchBar.text];
 }
 
 #pragma mark - WBSegViewDelegate

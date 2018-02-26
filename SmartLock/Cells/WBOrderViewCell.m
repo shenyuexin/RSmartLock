@@ -18,6 +18,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
 @property (nonatomic, strong) UIView *noResultsView;
 
 @property (nonatomic, strong) NSMutableArray *dataList;
+@property (nonatomic, strong) NSString *searchKey;
 @end
 
 @implementation WBOrderViewCell
@@ -28,6 +29,7 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
     if(self){
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusChange:) name:kNotificationPersonCellUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:kNotificationPersonListUpdate object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchUpdate:) name:kNotificationPersonSearchUpdate object:nil];
         [self.tableView registerClass:[RPersonCell class] forCellReuseIdentifier:RPersonCellIdentifier];
 
     }
@@ -61,10 +63,16 @@ NSString * const WBOrderViewCellIdentifier = @"WBOrderViewCellIdentifier";
     [self fetchData];
 }
 
+- (void)searchUpdate:(NSNotification *)notification
+{
+    self.searchKey = notification.object;
+    [self fetchData];
+}
+
 #pragma mark - Data
 - (void)fetchData
 {
-    RACSignal *dataSignal = [WBAPIManager getLockUsers:_lockId enable:(_index==0?YES:NO) page:0];
+    RACSignal *dataSignal = [WBAPIManager getLockUsers:_lockId searchKey:self.searchKey enable:(_index==0?YES:NO) page:0];
     [[dataSignal takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(NSArray *orders) {
         self.dataList = orders.mutableCopy;
         if(self.dataList.count > 0){

@@ -8,7 +8,6 @@
 
 #import "RAddPersonViewController.h"
 #import "RCustomizeCell.h"
-#import "RPersonInfo.h"
 #import "RDatePickerView.h"
 #import "RRatePickerView.h"
 #import "WBAPIManager+Bussiness.h"
@@ -16,9 +15,9 @@
 @interface RAddPersonViewController ()
 
 @property (nonatomic, strong) NSArray *dataList;
-@property (nonatomic, strong) RPersonInfo *person;
 @property (nonatomic, strong) RDatePickerView *pickerView;
 @property (nonatomic, strong) RRatePickerView *ratePickerView;
+@property (nonatomic, assign) BOOL isEdit;
 @end
 
 @implementation RAddPersonViewController
@@ -26,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"添加人员";
+    self.navigationItem.title = _person?@"编辑":@"添加人员";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveClick)];
     
     if(!_person){
@@ -72,6 +71,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setPerson:(RPersonInfo *)person
+{
+    _person = person;
+    _isEdit = YES;
+}
+
 #pragma mark - Event
 - (void)saveClick
 {
@@ -109,12 +114,22 @@
     RCustomizeCell *cell6 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6 inSection:0]];
     _person.fgpEnable = cell6.rswitch.isOn;
     
-    [[WBAPIManager addPerson:_person toLock:_lock.lid] subscribeNext:^(id x) {
-        [WBLoadingView showSuccessStatus:@"添加用户成功"];
-        [self.navigationController popViewControllerAnimated:YES];
-    } error:^(NSError *error) {
-        [WBLoadingView showErrorStatus:error.domain];
-    }];
+    if(_isEdit){
+        [[WBAPIManager editPerson:_person toLock:_lock.lid] subscribeNext:^(id x) {
+            [WBLoadingView showSuccessStatus:@"编辑成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } error:^(NSError *error) {
+            [WBLoadingView showErrorStatus:error.domain];
+        }];
+    }
+    else{
+        [[WBAPIManager addPerson:_person toLock:_lock.lid] subscribeNext:^(id x) {
+            [WBLoadingView showSuccessStatus:@"添加用户成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } error:^(NSError *error) {
+            [WBLoadingView showErrorStatus:error.domain];
+        }];
+    }
 }
 
 #pragma mark - UITableView
