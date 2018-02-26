@@ -29,8 +29,12 @@
     self.navigationItem.title = @"添加人员";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveClick)];
     
-    _person = [RPersonInfo new];
-    
+    if(!_person){
+        _person = [RPersonInfo new];
+        _person.isIcCode = 10;
+        _person.isPinCode = 10;
+        _person.isFingerprintCode = 10;
+    }
     self.tableView.rowHeight = 51;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
@@ -91,7 +95,7 @@
     
     RCustomizeCell *cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     _person.idNum = cell2.txtField.text;
-    if(!_person.phone.isIdNum){
+    if(!_person.idNum.isIdNum){
         [WBLoadingView showErrorStatus:@"请输入合法身份证号"];
         return;
     }

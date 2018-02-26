@@ -157,7 +157,7 @@
             else{
                 //从服务器返回数据
                 if([responseObject[@"status"] isEqualToString:@"SUCCESS"]){
-                    if(responseObject[@"t"]){
+                    if(responseObject[@"t"] && ![responseObject[@"t"] isKindOfClass:[NSNull class]]){
                         NSString *token = responseObject[@"t"][@"accessToken"];
                         if(token.isNotEmpty){
                             self.accessToken = token;

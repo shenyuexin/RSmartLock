@@ -10,7 +10,6 @@
 
 @interface RBaseViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UIButton *backButton;
 @end
 
 @implementation RBaseViewController

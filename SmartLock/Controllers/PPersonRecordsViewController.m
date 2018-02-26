@@ -8,6 +8,7 @@
 
 #import "PPersonRecordsViewController.h"
 #import "RUsageCell.h"
+#import "WBAPIManager+Bussiness.h"
 
 @interface PPersonRecordsViewController ()
 
@@ -30,10 +31,10 @@
 #pragma mark - Data
 - (void)fetchData
 {
-//    [[WBAPIManager getLockRecords:_lock.lid keyWord:nil beginDate:nil endDate:nil page:0] subscribeNext:^(NSArray *array) {
-//        self.dataList = array.mutableCopy;
-//        [self.tableView reloadData];
-//    }];
+    [[WBAPIManager getLockRecords:_lockid userid:_pid page:0] subscribeNext:^(NSArray *array) {
+        self.dataList = array.mutableCopy;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - UITableView

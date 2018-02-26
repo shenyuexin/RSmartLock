@@ -12,9 +12,6 @@
 @interface RPersonInfo ()
 
 @property (nonatomic, assign) NSInteger status;
-@property (nonatomic, assign) NSInteger isPinCode;
-@property (nonatomic, assign) NSInteger isFingerprintCode;
-@property (nonatomic, assign) NSInteger isIcCode;
 
 @property (nonatomic, assign) long long useStartTime;
 @property (nonatomic, assign) long long useEndTime;
@@ -31,12 +28,13 @@
              @"phone":@"mobile",
              @"rate":@"frequency",
              @"rateMode":@"frequencyMode",
+             @"lockid":@"serialNo"
              };
 }
 
 - (NSString *)beginDate
 {
-    if(!_beginDate){
+    if(!_beginDate && _useStartTime>0){
         _beginDate = [[NSDate dateWithTimeIntervalSince1970:_useStartTime/1000] stringWithDateFormat:@"yyyy-MM-dd"];
     }
     return _beginDate;
@@ -44,7 +42,7 @@
 
 - (NSString *)endDate
 {
-    if(!_endDate){
+    if(!_endDate && _useEndTime>0){
         _endDate = [[NSDate dateWithTimeIntervalSince1970:_useEndTime/1000] stringWithDateFormat:@"yyyy-MM-dd"];
     }
     return _endDate;
@@ -54,13 +52,13 @@
 {
     if(_rateMode > 0 && _rate > 0){
         switch (_rateMode) {
-            case 0:
+            case 10:
                 _rateString = [NSString stringWithFormat:@"%ld天1次",_rate];
                 break;
-            case 1:
+            case 20:
                 _rateString = [NSString stringWithFormat:@"%ld周1次",_rate];
                 break;
-            case 2:
+            case 30:
                 _rateString = [NSString stringWithFormat:@"%ld月1次",_rate];
                 break;
             default:

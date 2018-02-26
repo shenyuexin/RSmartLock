@@ -9,6 +9,7 @@
 #import "RPersonCell.h"
 #import "UIView+BorderLine.h"
 #import "WBAPIManager+Bussiness.h"
+#import "WBMediator.h"
 
 NSString * const RPersonCellIdentifier = @"RPersonCellIdentifier";
 
@@ -112,7 +113,7 @@ NSString * const RPersonCellIdentifier = @"RPersonCellIdentifier";
 
 - (void)recordsClick
 {
-    
+    [[WBMediator sharedManager] gotoPersonRecordController:_person.lockid personid:_person.pid];
 }
 
 #pragma mark - Getter

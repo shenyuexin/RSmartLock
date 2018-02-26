@@ -35,6 +35,10 @@
                       endDate:(NSString *)end
                          page:(NSInteger)page;
 
++ (RACSignal *)getLockRecords:(NSString *)serialNum
+                       userid:(NSString *)userid
+                         page:(NSInteger)page;
+
 + (RACSignal *)stopLock:(NSString *)serialNum;
 + (RACSignal *)resetLock:(NSString *)serialNum;
 + (RACSignal *)setLockAddress:(NSString *)address serialNum:(NSString *)serialNum;

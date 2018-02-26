@@ -40,6 +40,7 @@
     [self.view addSubview:self.tipLabel];
     [self.view addSubview:self.txtView];
     [self.view addSubview:self.submitBtn];
+    self.txtView.text = self.lock.address;
 }
 
 #pragma mark - Event
@@ -50,9 +51,9 @@
 
 - (void)submitClick
 {
-    if(self.txtView.text.isNotEmpty && ![self.txtView.text isEqualToString:_lock.address]){
-        [[WBAPIManager setLockAddress:self.txtView.text serialNum:_lock.lid] subscribeNext:^(id x) {
-            _lock.address = self.txtView.text;
+    if(self.txtView.text.isNotEmpty && ![self.txtView.text isEqualToString:self.lock.address]){
+        [[WBAPIManager setLockAddress:self.txtView.text serialNum:self.lock.lid] subscribeNext:^(id x) {
+            self.lock.address = self.txtView.text;
             [WBLoadingView showSuccessStatus:@"修改锁地址成功"];
             [self.navigationController popViewControllerAnimated:YES];
         } error:^(NSError *error) {

@@ -82,6 +82,23 @@
     }];
 }
 
++ (RACSignal *)getLockRecords:(NSString *)serialNum
+                       userid:(NSString *)userid
+                         page:(NSInteger)page
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSMutableDictionary *params = @{@"serialNo":serialNum,
+                                    @"memberId":userid,
+                                    @"offset":@(page*kDefaultPageNum),
+                                    @"limit":@(kDefaultPageNum)}.mutableCopy;
+    NSURLRequest *request = [manager requestWithMethod:@"/unlockrecord/search" params:params uploadImages:nil];
+    return [[manager signalWithRequest:request] map:^id(NSDictionary *data) {
+        NSArray *array = [RRecordInfo mj_objectArrayWithKeyValuesArray:data[@"rows"]];
+        return array;
+    }];
+    
+}
+
 + (RACSignal *)stopLock:(NSString *)serialNum
 {
     WBAPIManager *manager = [self sharedManager];
@@ -116,9 +133,9 @@
                              @"identityCard":person.idNum,
                              @"useStartTime":person.beginDate,
                              @"useEndTime":person.endDate,
-                             @"isPinCode":@(person.pwdEnable),
-                             @"isIcCode":@(person.icEnable),
-                             @"isFingerprintCode":@(person.fgpEnable),
+                             @"isPinCode":@(person.isPinCode),
+                             @"isIcCode":@(person.isIcCode),
+                             @"isFingerprintCode":@(person.isFingerprintCode),
                              @"frequency":@(person.rate),
                              @"frequencyMode":@(person.rateMode),
                              };

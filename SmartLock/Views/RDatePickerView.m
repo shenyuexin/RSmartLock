@@ -56,6 +56,16 @@
 
 - (void)confirmClick
 {
+    if(!self.beginTextField.text.isNotEmpty){
+        [WBLoadingView showErrorStatus:@"开始时间不能为空"];
+        return;
+    }
+    
+    if(!self.endTextField.text.isNotEmpty){
+        [WBLoadingView showErrorStatus:@"结束时间不能为空"];
+        return;
+    }
+    
     NSDate *beginDate = [NSDate dateWithString:self.beginTextField.text];
     NSDate *endDate = [NSDate dateWithString:self.endTextField.text];
     if([beginDate compare:endDate] == NSOrderedDescending){

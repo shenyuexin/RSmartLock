@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *idNum;
+@property (nonatomic, strong) NSString *lockid;
 
 @property (nonatomic, strong) NSString *beginDate;
 @property (nonatomic, strong) NSString *endDate;
@@ -23,6 +24,10 @@
 @property (nonatomic, assign) BOOL pwdEnable;
 @property (nonatomic, assign) BOOL icEnable;
 @property (nonatomic, assign) BOOL fgpEnable;
+@property (nonatomic, assign) NSInteger isPinCode;
+@property (nonatomic, assign) NSInteger isFingerprintCode;
+@property (nonatomic, assign) NSInteger isIcCode;
+
 @property (nonatomic, strong) NSString *lockModeString;
 
 @property (nonatomic, assign) NSInteger rate;       //数

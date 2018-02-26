@@ -12,6 +12,7 @@
 @interface RBaseViewController : UIViewController
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIButton *backButton;
 
 - (void)backClick;
 

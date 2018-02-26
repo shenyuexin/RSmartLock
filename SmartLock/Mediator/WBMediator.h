@@ -61,4 +61,7 @@
 
 //前往添加许可人员页面
 - (void)gotoAddPersonController:(id)lock;
+
+//前往用户开锁记录页面
+- (void)gotoPersonRecordController:(NSString *)lockid personid:(NSString*)pid;
 @end

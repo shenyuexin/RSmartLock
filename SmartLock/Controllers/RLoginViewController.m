@@ -39,6 +39,8 @@
     [self.view addSubview:self.phoneTextField];
     [self.view addSubview:self.codeTextField];
     [self.view addSubview:self.loginBtn];
+    
+    self.phoneTextField.text = @"18072972686";
 }
 
 - (void)didReceiveMemoryWarning {

@@ -25,7 +25,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveClick)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveClick)];
     
     self.dataList = @[@[@"认证频度"],@[@"设定开锁许可人员"],
                       @[@"设置临时密码",@"设置IC卡开锁",@"设置指纹开锁"],
@@ -63,10 +63,10 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     
 }
 
-- (void)saveClick
-{
-    
-}
+//- (void)saveClick
+//{
+//
+//}
 
 #pragma mark - UITableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

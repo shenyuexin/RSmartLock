@@ -166,4 +166,18 @@
 #pragma clang diagnostic pop
     [self gotoController:controller];
 }
+
+- (void)gotoPersonRecordController:(NSString *)lockid personid:(NSString*)pid
+{
+    UIViewController *controller = [self controllerWithName:@"RAddPersonViewController"];
+    SEL action = NSSelectorFromString(@"setLockid:");
+    SEL actiona = NSSelectorFromString(@"setPid:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [controller performSelector:action withObject:lockid];
+    [controller performSelector:actiona withObject:pid];
+#pragma clang diagnostic pop
+    [self gotoController:controller];
+
+}
 @end

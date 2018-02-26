@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *stateLabel;
+@property (nonatomic, strong) UIImageView *stateImgView;
 @property (nonatomic, strong) UILabel *usageLabel;
 @property (nonatomic, strong) UILabel *usersLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
@@ -41,6 +42,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"智能便携锁智";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.settingBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     
     self.tableView.rowHeight = 74;
     [self.tableView registerClass:[RUsageCell class] forCellReuseIdentifier:RUsageCellIdentifier];
@@ -55,7 +57,7 @@
         @strongify(self);
         [self fetchFilterData];
     }];
-    
+
     [self fetchData];
 }
 
@@ -88,10 +90,25 @@
     NSMutableAttributedString *stringc = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n下次自检时间",_lock.dateString] attributes:@{NSFontAttributeName:font, NSForegroundColorAttributeName:tColor}];
     [stringc addAttributes:@{NSFontAttributeName:sfont, NSForegroundColorAttributeName:HEX_RGB(0x777777)} range:NSMakeRange(stringc.length-6, 6)];
     self.dateLabel.attributedText = stringc;
+
+    if(!_lock.enable){
+        [self.headView addSubview:self.stateImgView];
+        self.stateLabel.hidden = YES;
+        [_stateLabel removeFromSuperview];
+    }
     
+    @weakify(self);
+    [RACObserve(self.lock, address) subscribeNext:^(id x) {
+        @strongify(self);
+        [self updateAddress];
+    }];
+}
+
+- (void)updateAddress
+{
     NSMutableAttributedString *btnTitle = nil;
     if(_lock.address.isNotEmpty){
-        btnTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ",_lock.address] attributes:@{NSForegroundColorAttributeName:HEX_RGB(0xe999999),NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+        btnTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ",_lock.address] attributes:@{NSForegroundColorAttributeName:HEX_RGB(0x999999),NSFontAttributeName:[UIFont systemFontOfSize:13]}];
     }
     else{
         btnTitle = [[NSMutableAttributedString alloc] initWithString:@"请完善该锁地址 " attributes:@{NSForegroundColorAttributeName:HEX_RGB(0xe86868),NSFontAttributeName:[UIFont systemFontOfSize:13]}];
@@ -262,6 +279,15 @@
         _stateLabel.attributedText = title;
     }
     return _stateLabel;
+}
+
+- (UIImageView *)stateImgView
+{
+    if(!_stateImgView){
+        _stateImgView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-66, 0, 66, 54)];
+        _stateImgView.image = [UIImage imageNamed:@"icon_tingyong"];
+    }
+    return _stateImgView;
 }
 
 - (UILabel *)usageLabel
