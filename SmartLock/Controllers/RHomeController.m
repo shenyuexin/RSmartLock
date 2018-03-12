@@ -11,7 +11,7 @@
 #import "WBAPIManager.h"
 #import "RConfigureView.h"
 #import "RHomeContentView.h"
-#import "RAuthorizedManager.h"
+#import "RBlueToothManager.h"
 #import "RHomeCell.h"
 #import "WBSearchBar.h"
 #import "WBAPIManager+Bussiness.h"

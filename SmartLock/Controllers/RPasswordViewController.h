@@ -10,4 +10,5 @@
 
 @interface RPasswordViewController : RBaseViewController
 
+@property (nonatomic, strong) NSString *lockid;
 @end

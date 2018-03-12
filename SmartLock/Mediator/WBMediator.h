@@ -30,7 +30,7 @@
 - (void)gotoSettingController:(id)lock;
 
 //前往修改密码页
-- (void)gotoModifyPasswordController;
+- (void)gotoModifyPasswordController:(id)lockid;
 
 //前往开锁记录页
 - (void)gotoRecordsController;

@@ -9,6 +9,8 @@
 #import "RQRCodeViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WBSeparateButton.h"
+#import "RBlueToothManager.h"
+#import "WBAPIManager.h"
 
 @interface RQRCodeViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
@@ -172,7 +174,9 @@
     self.lightBtn.selected = !self.lightBtn.isSelected;
     
     if(_device.hasTorch){
+        [_device lockForConfiguration:nil];
         [_device setTorchMode: self.lightBtn.selected?AVCaptureTorchModeOn:AVCaptureTorchModeOff];
+        [_device unlockForConfiguration];
     }
 }
 
@@ -194,15 +198,35 @@
         for (id temp in arry) {
             NSLog(@"%@",temp);
         }
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"扫描结果" message:stringValue preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+        BOOL vaild = YES;
+        if(vaild){
             if (_session != nil && timer != nil) {
                 [_session startRunning];
                 [timer setFireDate:[NSDate date]];
             }
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+            [[RBlueToothManager manager] connectToLock:stringValue complete:^(BOOL success) {
+                if(success){
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else{
+                    [WBLoadingView showErrorStatus:@"认证失败"];
+                }
+            }];
+        }
+        else{
+//            if([WBAPIManager sharedManager].servicePhoneNum.isNotEmpty){
+//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"无法识别" message:@"即将呼叫客服，是否现在呼叫?" preferredStyle:UIAlertControllerStyleAlert];
+//                [alert addAction:[UIAlertAction actionWithTitle:@"手动输入锁序号" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationManualInputSerialNum object:nil];
+//                }]];
+//                [alert addAction:[UIAlertAction actionWithTitle:@"呼叫客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[WBAPIManager sharedManager].servicePhoneNum]]];
+//                }]];
+//                [self presentViewController:alert animated:YES completion:nil];
+//            }
+        }
         
     } else {
         NSLog(@"无扫描信息");
@@ -214,13 +238,17 @@
 - (WBSeparateButton *)lightBtn
 {
     if(!_lightBtn){
-        _lightBtn = [[WBSeparateButton alloc] initWithFrame:CGRectMake((self.view.width-90)/2, self.view.height-150, 90, 80)];
+        _lightBtn = [[WBSeparateButton alloc] initWithFrame:CGRectMake((self.view.width-90)/2, self.view.height-180, 90, 80)];
         _lightBtn.imageRect = CGRectMake(20, 0, 50, 50);
-        _lightBtn.labelRect = CGRectMake(0, 65, 90, 15);
-        [_lightBtn setImage:[UIImage imageNamed:@"daintong_off"] forState:UIControlStateNormal];
-        [_lightBtn setImage:[UIImage imageNamed:@"daintong_on"] forState:UIControlStateSelected];
+        _lightBtn.labelRect = CGRectMake(0, 60, 90, 15);
+        _lightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _lightBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_lightBtn setImage:[UIImage imageNamed:@"diantong_off"] forState:UIControlStateNormal];
+        [_lightBtn setImage:[UIImage imageNamed:@"diantong_on"] forState:UIControlStateSelected];
         [_lightBtn setTitle:@"打开手电筒" forState:UIControlStateNormal];
+        [_lightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_lightBtn setTitle:@"关闭手电筒" forState:UIControlStateSelected];
+        [_lightBtn setTitleColor:HEX_RGB(0xFFE17E) forState:UIControlStateSelected];
         [_lightBtn addTarget:self action:@selector(lightClick) forControlEvents:UIControlEventTouchDown];
     }
     return _lightBtn;

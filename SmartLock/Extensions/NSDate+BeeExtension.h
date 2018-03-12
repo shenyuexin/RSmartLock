@@ -65,6 +65,7 @@
 
 //string must follow the format: yyyy-MM-dd HH:mm:ss
 + (NSDate *)dateWithString:(NSString *)string;
++ (NSDate *)dateWithString:(NSString *)string formate:(NSString *)formate;
 + (NSDate *)dateWithYYYYMMDDString:(NSString *)string;
 
 + (NSDate *)now;

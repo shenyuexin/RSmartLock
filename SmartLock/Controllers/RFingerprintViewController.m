@@ -24,6 +24,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置指纹";
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.tableView.separatorColor = HEX_RGB(0xdddddd);
+    [self.tableView registerClass:[RFingerPrintCell class] forCellReuseIdentifier:RFingerPrintCellIdentifier];
     self.tableView.tableHeaderView = self.headerView;
 }
 

@@ -124,6 +124,15 @@
     return [manager signalWithRequest:request];
 }
 
++ (RACSignal *)setLockPassword:(NSString *)password serialNum:(NSString *)serialNum
+{
+    WBAPIManager *manager = [self sharedManager];
+    NSDictionary *params = @{@"serialNo":serialNum,
+                             @"pinCode":password};
+    NSURLRequest *request = [manager requestWithMethod:@"/merchant/smartlock/changeInfo" params:params uploadImages:nil];
+    return [manager signalWithRequest:request];
+}
+
 + (RACSignal *)setLockRate:(NSInteger )rate
                   rateMode:(NSInteger)rateMode
                  serialNum:(NSString *)serialNum

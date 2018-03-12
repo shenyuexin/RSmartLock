@@ -27,6 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(id x) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.top = - 130;
+        }];
+    }];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(id x) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.top = 0;
+        }];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,16 +55,27 @@
     self.phoneTextField.text = @"18072972686";
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark - Event
 - (void)hideKeyBoard
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.view.top = 0;
+//        self.view.top = 0;
         [self.view endEditing:YES];
     }];
 }
@@ -96,13 +119,13 @@
     }
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.view.top = - 130;
-    }];
-    return YES;
-}
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//{
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.view.top = - 130;
+//    }];
+//    return YES;
+//}
 
 #pragma mark - Getter
 - (UIImageView *)topBgImgView

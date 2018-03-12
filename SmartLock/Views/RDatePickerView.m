@@ -42,7 +42,7 @@
 {    
     [super showInView:superview];
     if(self.beginDateString){
-        self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
+        self.datePicker.date = [NSDate dateWithString:self.beginDateString formate:@"yyyy-MM-dd HH:mm"];
         [_contentView addSubview:self.datePicker];
     }
 }
@@ -81,7 +81,7 @@
 - (void)dateChange:(UIDatePicker *)picker
 {
     NSDate *date = picker.date;
-    _curTextField.text = [date stringWithDateFormat:@"yyyy-MM-dd"];
+    _curTextField.text = [date stringWithDateFormat:@"yyyy-MM-dd HH:mm"];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -93,20 +93,20 @@
     if(_curTextField == self.beginTextField){
         [self.endTextField setLineColor:HEX_RGB(0xdddddd)];
         if(self.beginDateString){
-            self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.beginDateString];
+            self.datePicker.date = [NSDate dateWithString:self.beginDateString formate:@"yyyy-MM-dd HH:mm"];
         }
         else{
-            self.beginTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd"];
+            self.beginTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd HH:mm"];
         }
     }
     else{
         [self.beginTextField setLineColor:HEX_RGB(0xdddddd)];
         
         if(self.endDateString){
-            self.datePicker.date = [NSDate dateWithYYYYMMDDString:self.endDateString];
+            self.datePicker.date = [NSDate dateWithString:self.endDateString formate:@"yyyy-MM-dd HH:mm"];
         }
         else{
-            self.endTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd"];
+            self.endTextField.text = [[NSDate date] stringWithDateFormat:@"yyyy-MM-dd HH:mm"];
         }
     }
     
@@ -163,9 +163,10 @@
 - (UIDatePicker *)datePicker
 {
     if(!_datePicker){
-        _datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0, 140, SCREEN_WIDTH, 216)];
-        _datePicker.datePickerMode = UIDatePickerModeDate;
-        _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 140, SCREEN_WIDTH, 216)];
+        _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+        _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+//        _datePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
         [_datePicker addTarget:self action:@selector(dateChange:) forControlEvents:UIControlEventValueChanged];
     }
     return _datePicker;

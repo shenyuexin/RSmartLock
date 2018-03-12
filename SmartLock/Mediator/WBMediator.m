@@ -81,9 +81,15 @@
     [self gotoController:controller];
 }
 
-- (void)gotoModifyPasswordController
+- (void)gotoModifyPasswordController:(id)lockid
 {
     UIViewController *controller = [self controllerWithName:@"RPasswordViewController"];
+    SEL action = NSSelectorFromString(@"setLockid:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [controller performSelector:action withObject:lockid];
+#pragma clang diagnostic pop
+
     [self gotoController:controller];
 }
 

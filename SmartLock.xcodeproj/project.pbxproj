@@ -86,7 +86,7 @@
 		7976F107202C251A00D09A25 /* WBAPIManager+Bussiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F105202C251A00D09A25 /* WBAPIManager+Bussiness.m */; };
 		7976F10A202D7FC400D09A25 /* RBaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7976F109202D7FC400D09A25 /* RBaseInfo.m */; };
 		7989F8E62011E46C0025E2FE /* RHomeContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E52011E46C0025E2FE /* RHomeContentView.m */; };
-		7989F8E92011E8710025E2FE /* RAuthorizedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E82011E8710025E2FE /* RAuthorizedManager.m */; };
+		7989F8E92011E8710025E2FE /* RBlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8E82011E8710025E2FE /* RBlueToothManager.m */; };
 		7989F8EC2011F8ED0025E2FE /* RRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */; };
 		79B1DB4420400806004B32A6 /* PPersonRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B1DB4320400806004B32A6 /* PPersonRecordsViewController.m */; };
 		79D0737120108729000203C2 /* RPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D0737020108729000203C2 /* RPasswordViewController.m */; };
@@ -261,8 +261,8 @@
 		7976F109202D7FC400D09A25 /* RBaseInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBaseInfo.m; sourceTree = "<group>"; };
 		7989F8E42011E46C0025E2FE /* RHomeContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHomeContentView.h; sourceTree = "<group>"; };
 		7989F8E52011E46C0025E2FE /* RHomeContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHomeContentView.m; sourceTree = "<group>"; };
-		7989F8E72011E8710025E2FE /* RAuthorizedManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAuthorizedManager.h; sourceTree = "<group>"; };
-		7989F8E82011E8710025E2FE /* RAuthorizedManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAuthorizedManager.m; sourceTree = "<group>"; };
+		7989F8E72011E8710025E2FE /* RBlueToothManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBlueToothManager.h; sourceTree = "<group>"; };
+		7989F8E82011E8710025E2FE /* RBlueToothManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBlueToothManager.m; sourceTree = "<group>"; };
 		7989F8EA2011F8ED0025E2FE /* RRecordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRecordsViewController.h; sourceTree = "<group>"; };
 		7989F8EB2011F8ED0025E2FE /* RRecordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRecordsViewController.m; sourceTree = "<group>"; };
 		79B1DB4220400806004B32A6 /* PPersonRecordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPersonRecordsViewController.h; sourceTree = "<group>"; };
@@ -589,8 +589,8 @@
 		79651FD520049E8100A4759F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				7989F8E72011E8710025E2FE /* RAuthorizedManager.h */,
-				7989F8E82011E8710025E2FE /* RAuthorizedManager.m */,
+				7989F8E72011E8710025E2FE /* RBlueToothManager.h */,
+				7989F8E82011E8710025E2FE /* RBlueToothManager.m */,
 			);
 			name = Managers;
 			path = SmartLock/Managers;
@@ -658,7 +658,7 @@
 				TargetAttributes = {
 					79651FB820049D9300A4759F = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -749,7 +749,7 @@
 				7964C1272015E21500B8A1B5 /* RICCell.m in Sources */,
 				79F34337202464CF00BF6087 /* RUsageCell.m in Sources */,
 				7976F0F22028444C00D09A25 /* RAddPersonViewController.m in Sources */,
-				7989F8E92011E8710025E2FE /* RAuthorizedManager.m in Sources */,
+				7989F8E92011E8710025E2FE /* RBlueToothManager.m in Sources */,
 				79D073792011D9DC000203C2 /* RRecordCell.m in Sources */,
 				7976F104202AE13800D09A25 /* RDatePickerView.m in Sources */,
 				792937092008BD4E00C0A970 /* WBAPIManager.m in Sources */,
@@ -949,13 +949,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 8EEEZ3M469;
 				GCC_PREFIX_HEADER = "SmartLock/SmartLock-PrefixHeader.pch";
 				INFOPLIST_FILE = SmartLock/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.richard.SmartLockB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7744458e-ab40-43fe-bb41-cbeb73532c2a";
+				PROVISIONING_PROFILE_SPECIFIER = SmartLockB_Development;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wno-unknown-escape-sequence";
 			};
@@ -967,13 +970,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 8EEEZ3M469;
 				GCC_PREFIX_HEADER = "SmartLock/SmartLock-PrefixHeader.pch";
 				INFOPLIST_FILE = SmartLock/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.richard.SmartLockB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7744458e-ab40-43fe-bb41-cbeb73532c2a";
+				PROVISIONING_PROFILE_SPECIFIER = SmartLockB_Development;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wno-unknown-escape-sequence";
 			};

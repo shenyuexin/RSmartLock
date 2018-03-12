@@ -10,6 +10,9 @@
 
 NSString * const RCustomizeCellIdentifier = @"RCustomizeCellIdentifier";
 
+@interface RCustomizeCell ()<UITextFieldDelegate>
+@end
+
 
 @implementation RCustomizeCell
 
@@ -21,6 +24,13 @@ NSString * const RCustomizeCellIdentifier = @"RCustomizeCellIdentifier";
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Getter
@@ -44,6 +54,8 @@ NSString * const RCustomizeCellIdentifier = @"RCustomizeCellIdentifier";
         _txtField.font = [UIFont systemFontOfSize:15];
         _txtField.textAlignment = NSTextAlignmentRight;
         _txtField.placeholder = @"请输入";
+        _txtField.delegate = self;
+        _txtField.returnKeyType = UIReturnKeyDone;
         [self addSubview:_txtField];
     }
     return _txtField;

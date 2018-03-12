@@ -19,7 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"IC卡开锁";
-    [_tableView registerClass:[RICCell class] forCellReuseIdentifier:RICCellIdentifier];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.tableView.separatorColor = HEX_RGB(0xdddddd);
+    [self.tableView registerClass:[RICCell class] forCellReuseIdentifier:RICCellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {

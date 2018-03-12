@@ -193,7 +193,7 @@ static NSString *RSettingCellIdentifier = @"RSettingCellIdentifier";
     else if(indexPath.section == 2)
     {
         if(indexPath.row == 0){
-            [[WBMediator sharedManager] gotoModifyPasswordController];
+            [[WBMediator sharedManager] gotoModifyPasswordController:_lock.lid];
         }
         else if(indexPath.row == 1){
             [[WBMediator sharedManager] gotoICController];

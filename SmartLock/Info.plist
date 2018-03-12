@@ -37,5 +37,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>请允许“智能锁”访问你的蓝牙</string>
+	<key>NSCameraUsageDescription</key>
+	<string>请允许“智能锁”访问您的相机</string>
 </dict>
 </plist>

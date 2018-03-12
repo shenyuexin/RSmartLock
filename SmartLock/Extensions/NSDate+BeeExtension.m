@@ -200,7 +200,7 @@
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+//        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     });
     return formatter;
 }
@@ -210,6 +210,15 @@
     if(!string) return nil;
     
     return [[NSDate formatter] dateFromString:string];
+}
+
++ (NSDate *)dateWithString:(NSString *)string formate:(NSString *)formate
+{
+    if(!string) return nil;
+    
+    NSDateFormatter * dateFormatter = [NSDate formatter];
+    [dateFormatter setDateFormat:formate];
+    return [dateFormatter dateFromString:string];
 }
 
 + (NSDate *)dateWithYYYYMMDDString:(NSString *)string

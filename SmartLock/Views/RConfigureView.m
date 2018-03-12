@@ -9,7 +9,7 @@
 #import "RConfigureView.h"
 #import "UIImage+Color.h"
 #import "WBMediator.h"
-#import "RAuthorizedManager.h"
+#import "RBlueToothManager.h"
 
 
 @interface RConfigureTextField : UITextField
@@ -117,7 +117,7 @@
 
 - (void)submitClick
 {
-    [RAuthorizedManager manager].isAuth = YES;
+    [RBlueToothManager manager].isConnected = YES;
 }
 
 #pragma mark - Getter

@@ -176,6 +176,7 @@
             }
             else{
                 cell.txtField.placeholder = @"请输入";
+                cell.txtField.keyboardType = UIKeyboardTypePhonePad;
             }
             break;
         }
@@ -197,7 +198,7 @@
             else{
                 cell.txtField.placeholder = @"请输入";
             }
-            cell.txtField.width = SCREEN_WIDTH - 150;
+            cell.txtField.frame = CGRectMake(95, 17, SCREEN_WIDTH - 130, 17);
             cell.txtField.enabled = NO;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -225,7 +226,7 @@
             else{
                 cell.txtField.placeholder = @"请输入";
             }
-            cell.txtField.width = SCREEN_WIDTH - 150;
+            cell.txtField.frame = CGRectMake(95, 17, SCREEN_WIDTH - 130, 17);
             cell.txtField.enabled = NO;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -240,9 +241,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if(indexPath.row == 3){
+        [self.view endEditing:YES];
         [self.pickerView showInView:[UIApplication sharedApplication].keyWindow];
     }
     else if(indexPath.row == 7){
+        [self.view endEditing:YES];
         [self.ratePickerView showInView:[UIApplication sharedApplication].keyWindow];
     }
 }

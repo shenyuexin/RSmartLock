@@ -42,6 +42,7 @@
 + (RACSignal *)stopLock:(NSString *)serialNum;
 + (RACSignal *)resetLock:(NSString *)serialNum;
 + (RACSignal *)setLockAddress:(NSString *)address serialNum:(NSString *)serialNum;
++ (RACSignal *)setLockPassword:(NSString *)password serialNum:(NSString *)serialNum;
 
 + (RACSignal *)setLockRate:(NSInteger )rate
                   rateMode:(NSInteger)rateMode
